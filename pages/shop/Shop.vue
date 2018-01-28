@@ -107,7 +107,6 @@
       window.page = ''
       next()
     },
-
     created(){
       Indicator.open()
       this.getBannerData()
