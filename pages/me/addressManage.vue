@@ -52,22 +52,22 @@
         this.$http.post(this.API.receive_address_del, {
           id: id
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.status == 1) {
             this.addressList.splice(index, 1)
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       setDefault(id){//设置默认收货地址
         this.$http.post(this.API.receive_address_default, {
           id: id
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.getMyAddressList()
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       getMyAddressList(){
@@ -75,7 +75,7 @@
           this.addressList = res.data.data.data;
           localStorage.setItem('myAddressList',JSON.stringify(this.addressList))
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       }
     }

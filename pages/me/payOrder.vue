@@ -45,7 +45,7 @@
       <div class="btns shoppingCart_foot">
         <div class="settlement">
           <h3 class="cl"><i class="fl">当前订单</i> <i class="fr">总金额
-            <span class="" >￥{{parseFloat(orderDetail.goodsPrice) + orderDetail.goodsFreight}}</span>
+            <span class="" >￥{{parseFloat(orderDetail.goodsPrice) + parseFloat(orderDetail.goodsFreight)}}</span>
             <!--<span class="" v-if="orderDetail.goodsFreight">￥{{parseFloat(orderDetail.goodsPrice)}}</span>-->
           </i></h3>
           <button @click="orderSure()">结算</button>
@@ -91,7 +91,7 @@
         <a class="go_back" @click="payShow=false"></a>
       </el-header>
       <div class="content choosePay">
-        <span v-if="payShow">当前支付 <i class="fr">￥{{parseFloat(orderDetail.goodsPrice) + orderDetail.goodsFreight}}</i></span>
+        <span v-if="payShow">当前支付 <i class="fr">￥{{parseFloat(orderDetail.goodsPrice) + parseFloat(orderDetail.goodsFreight)}}</i></span>
         <p>选择支付方式</p>
         <ul>
           <!--<li class="qb" :class="{'on':payMethod=='1'}" @click="payMethod=1">钱包支付 <span></span></li>-->
@@ -144,7 +144,7 @@
           cartShow: {}
         },
         payShow: false,
-        payMethod: 1,
+        payMethod: 2,
 //        sendInfo: {
 //          goodsFreight: 0,
 //        },
@@ -199,7 +199,7 @@
             this.chooseType(this.orderDetail.cartShow.shopType == 2 ? 1 : 3) //this.orderType 2为附近商铺  1 为农家自产  后面1 为自提  3 为顺丰
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       //选择快递 配送时间
@@ -211,7 +211,7 @@
           weight:''
 
         }).then(res => {
-//          console.log(JSON.stringify(res));
+//          // console.log(JSON.stringify(res));
           if (res.data.status === 1) {
             this.sendInfo = res.data.data;
             if (index == 1) {
@@ -303,14 +303,15 @@
       paySure(){
         let params = {
           id: this.orderDetail.id,
-          payType: 1,
+//          payType: 1,
           logisticsType: this.orderDetail.logisticsType,//物流类别
           logisticsNo: this.orderDetail.logisticsNo,//物流单号
-          goodsFreight: this.orderDetail.goodsFreight ? 0.01 : 0,//物流运费
+          logisticsFreight: this.orderDetail.goodsFreight,//物流运费
           deliveryDate: this.orderDetail.deliveryDate || this.formatDate(new Date()),//配送日期
-          deliveryTime: this.orderDetail.deliveryTime//配送时间
+          deliveryTime: this.orderDetail.deliveryTime,//配送时间，
+          sfExpressType:this.orderDetail.sfExpressType
         };
-//        console.log(params)
+//        // console.log(params)
 //        return
         if (this.payMethod === 1) {
 
@@ -322,9 +323,7 @@
         if (this.payMethod === 2) {//选择微信支付
           params.payType = 2
         }
-
-
-//        console.log(JSON.stringify(params));
+//        // console.log(JSON.stringify(params));
 //        if (this.orderDetail.status === 1) {
           this.newPay(params)
 //        } else {
@@ -346,7 +345,7 @@
             MessageBox('提示', res.data.message);
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       //状态为2时 继续支付
@@ -363,7 +362,7 @@
             MessageBox('提示', res.data.message);
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       //阿里支付
@@ -411,11 +410,11 @@
             });
           }
 
-          console.log(JSON.stringify(ret))
+          // console.log(JSON.stringify(ret))
         });
       },
       wxpay(info){
-        console.log(info);
+        // console.log(info);
         let that = this;
         let params = {
           apiKey: info[0].split('=')[1],
@@ -426,7 +425,7 @@
           sign: info[5].split('=')[1],
           package:'Sign=WXPay'
         }
-        console.log(JSON.stringify(params))
+        // console.log(JSON.stringify(params))
         var wxPay = api.require('wxPay');
         wxPay.payOrder(params, function (ret, err) {
           if (ret.status) {
@@ -446,20 +445,20 @@
 
 
       onValuesChange(picker, values) {
-//       console.log(new Date(values[0]).getTime(),new Date().getTime())
+//       // console.log(new Date(values[0]).getTime(),new Date().getTime())
         if(new Date(values[0]).getTime()>new Date().getTime()){
-           console.log('第二天')
+           // console.log('第二天')
           this.getTomorrowTimeList()
         }else{
-          console.log('今天')
+          // console.log('今天')
           this.getTodayTimeList()
         }
         this.send = picker.getValues()
-        console.log(this.send)
+        // console.log(this.send)
       },
       //确定配送时间
       sure(){
-        console.log(this.send)
+        // console.log(this.send)
         this.orderDetail.sfExpressType = 0
         this.popupVisible = false;
 //        this.sendDate = this.send[0];

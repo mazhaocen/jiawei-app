@@ -141,7 +141,7 @@
             break
           case 'idCard':
             if (this.reg.idCard.test(value)) {
-              console.log(value)
+              // console.log(value)
             }
             break
         }
@@ -236,7 +236,7 @@
         let arr = ['name', 'tel', 'idCard']
         for (let i = 0; i < arr.length; i++) {
           if (!this.inputBlur(arr[i])) {
-            console.log('cuole');
+            // console.log('cuole');
             alert('请上填写真确的信息')
             return
           }
@@ -254,12 +254,12 @@
           idCardBackImg: JSON.parse(JSON.stringify(this.idCardBackImg)).split(',')[1],
           type: this.type,
         }
-        console.log(JSON.stringify(this.idCardFrontImg))
-        console.log(JSON.stringify(JSON.parse(JSON.stringify(this.idCardFrontImg)).split(',')[1]))
-        console.log(JSON.stringify(shopInfo))
+        // console.log(JSON.stringify(this.idCardFrontImg))
+        // console.log(JSON.stringify(JSON.parse(JSON.stringify(this.idCardFrontImg)).split(',')[1]))
+        // console.log(JSON.stringify(shopInfo))
 //        return
         this.$http.post(this.API.my_shop_apply,shopInfo).then(res=>{
-          console.log(JSON.stringify(res));
+          // console.log(JSON.stringify(res));
           Indicator.close();
 
           if(res.data.status==1){
@@ -269,7 +269,7 @@
 
         }).catch(err=>{
           alert('开店失败，请重试')
-          console.log(JSON.stringify(err))
+          // console.log(JSON.stringify(err))
           Indicator.close();
         })
       }

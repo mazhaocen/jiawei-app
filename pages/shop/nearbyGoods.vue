@@ -98,8 +98,8 @@ export default {
     /** 滚动预加载*/
     this.$refs.scrollContent.addEventListener('scroll', function (e) {
       // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
       if (this.scrollHeight - this.scrollTop - this.clientHeight <= 600) {
         that.queryData()
       }
@@ -136,9 +136,9 @@ export default {
       }, function (ret, err){
         if (ret.status) {
           that.resultsList = ret.results
-//          console.log(JSON.stringify(that.resultsList))
+//          // console.log(JSON.stringify(that.resultsList))
         } else {
-          console.log(JSON.stringify(err));
+          // console.log(JSON.stringify(err));
         }
       });
     },
@@ -168,11 +168,11 @@ export default {
 
     getGoodType(){//获取商品分类 类别
       this.$http.post(this.API.my_shop_goods_type, {}).then(res => {//获取商品分类列表
-        console.log(res.data);
+        // console.log(res.data);
         window.goodsType = res.data.data.data;
         this.goodsType =[{name:'全部',id:0}].concat(window.goodsType)
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     },
     reSearch() {
@@ -192,17 +192,17 @@ export default {
       }else{
         bMap.getLocationServices((ret, err) => {
           if (ret.enable) {
-            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(ret));
             if (api.systemType == 'ios') {
               bMap.initMapSDK((ret, err) => {
-                console.log(JSON.stringify(ret))
+                // console.log(JSON.stringify(ret))
                 if (ret.status) {
-                  console.log('ios 初始化地图成功')
+                  // console.log('ios 初始化地图成功')
                   getLoca()
                 }
               });
             } else {
-              console.log('获取坐标')
+              // console.log('获取坐标')
               getLoca()
             }
           } else {
@@ -218,12 +218,12 @@ export default {
           autoStop: true,
           filter: 1
         }, function (ret, err) {
-          console.log(JSON.stringify(ret))
+          // console.log(JSON.stringify(ret))
           if (ret.status) {
-            console.log('获取坐标成功')
+            // console.log('获取坐标成功')
             getNameFromCoord(ret.lon, ret.lat)
           } else {
-            console.log(JSON.stringify(err))
+            // console.log(JSON.stringify(err))
             // that.gpserr = '错误 code'+err.code+'/错误信息'+err.msg
           }
         });
@@ -237,11 +237,11 @@ export default {
           lon: lon,
           lat: lat,
         }, function (ret, err) {
-          console.log(JSON.stringify(ret))
+          // console.log(JSON.stringify(ret))
           if (!ret.status) {
             num++;
             if (num > 10) {
-              console.log(JSON.stringify(err));
+              // console.log(JSON.stringify(err));
               return
             }
             getNameFromCoord(lon, lat);
@@ -287,7 +287,7 @@ export default {
         lat:lat
       };
       this.$http.post(this.API.nearbyShop, params).then(res => {
-        console.log(JSON.stringify(res.data))
+        // console.log(JSON.stringify(res.data))
         var that = this;
         Indicator.close();
         let result = res.data.data.data
@@ -298,7 +298,7 @@ export default {
         this.$refs.loadmore.onTopLoaded();
         this.searching = false;
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     },
   },

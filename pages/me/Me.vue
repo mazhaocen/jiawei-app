@@ -5,7 +5,7 @@
     </el-header>
     <section class="content">
       <div class="about_me">
-        <div class="head_img"><img v-lazy="userInfo.img" alt=""></div>
+        <div class="head_img" v-if="userInfo.img"><img v-lazy="userInfo.img" alt=""></div>
         <div class="head_text">
           <h4 v-if="username">{{username}}</h4>
           <h4 v-if="!username" @click="goToSingIn">登录</h4>
@@ -94,7 +94,7 @@
 <script>
   import Footer from '@/components/Foot'
   import Header from '@/components/Head'
-  import { Popup, MessageBox } from 'mint-ui';
+  import { Popup, MessageBox, Indicator } from 'mint-ui';
 export default {
   name: 'me',
   data () {
@@ -119,9 +119,10 @@ export default {
     }else{
       this.userInfo.img=''
     }
+    console.log(this)
   },
   activated(){ //activated  keep-alive组件激活时调用。该钩子在服务器端渲染期间不被调用。
-//    console.log(this.$route.meta.height);
+//    // console.log(this.$route.meta.height);
     if(document.getElementsByClassName('content')[1]){
       document.getElementsByClassName('content')[1].scrollTop = this.$route.meta.height
     }
@@ -153,16 +154,17 @@ export default {
   },
   methods:{
     goToMyShop () {//去我的店铺
+      Indicator.open()
       if(localStorage.getItem('userId')){
         this.$http.post(this.API.my_shop_Info,{}).then(res=>{//请求我的店铺资料
-          console.log(res.data)
+          Indicator.close()
           if(res.data.status==1){
+            Indicator.close()
             localStorage.setItem('shopInfo',JSON.stringify(res.data.data));
             this.shopInfo = res.data.data;
             if(JSON.parse(sessionStorage.getItem('goToShopPwd'))){
               this.$router.push({name:'MyShop'})
             }else{
-//              if(this.userInfo.hasPwd){
               if(this.shopInfo.isExistPayPwd){
                 this.inputPwd = true;
                 setTimeout( ()=> {
@@ -182,16 +184,18 @@ export default {
                     this.$router.push({name:'MyShop'})
                   }
                 });
-
               }
             }
           }else if(res.data.status==0 && res.data.message=='未找到您的店铺'){
+            Indicator.close()
             this.$router.push({name:'NewShop'})
           }
         }).catch(err=>{
-          console.log(err)
+          // console.log(err)
+          Indicator.close()
         })
       }else{
+        Indicator.close()
         this.goToSingIn()
       }
 

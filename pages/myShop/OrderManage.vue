@@ -1,7 +1,7 @@
 <template>
   <div class="order_manage">
     <el-header title='订单管理' className="go_back"></el-header>
-    <section class="content" style="padding-bottom: 0;padding-top: 7rem">
+    <section class="content" style="padding-bottom: 0;padding-top: 10rem">
       <ul class="order-manage-type cl pa">
         <li :class="{active:chooseType=='all'}" @click="orderChoose('all')">全部</li>
         <!--<li> &nbsp </li>-->
@@ -118,7 +118,7 @@
           this.orderList = res.data.data.data
         }).catch(err=>{
           Indicator.close()
-            console.log(err)
+            // console.log(err)
         })
       },
       orderChoose (type){

@@ -56,7 +56,7 @@ Vue.use(md5);
 //   style.appendChild(styleCss)
 //   head.appendChild(style)
 //   var systemVersion = api.systemVersion;
-//   console.log(systemVersion)
+//   // console.log(systemVersion)
 //   if (parseFloat(systemVersion) < 4.3) {
 //     api.alert({title: '提示', msg: 'Android系统版本为:' + systemVersion + ',请用更Android4.3以上系统使用此软件'})
 //   }

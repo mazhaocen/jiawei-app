@@ -52,7 +52,7 @@ export default {
   },
 
   created(){
-    console.log(this.$route.params.liveType)
+    // console.log(this.$route.params.liveType)
   },
   methods:{
     certify(){
@@ -60,17 +60,17 @@ export default {
       this.telErr = false
       this.idCardErr = false
       if(!this.reg.name.test(this.linkName)){
-          console.log('名字错')
+          // console.log('名字错')
         this.nameErr= true
         return
       }
       if(!this.reg.tel.test(this.linkPhone)){
-        console.log('电话错')
+        // console.log('电话错')
         this.telErr= true
         return
       }
       if(!this.reg.idCard.test(this.linkCardNo)){
-        console.log('省份证错')
+        // console.log('省份证错')
         this.idCardErr= true
         return
       }
@@ -81,7 +81,7 @@ export default {
           linkCardNo:this.linkCardNo,
           liveType:this.$route.params.liveType
         }).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
           if(res.data.status==1){
             MessageBox.confirm('认证成功，开始直播吧！','提示').then(action =>{
               this.$router.push({name:'beginLive'})

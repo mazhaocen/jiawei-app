@@ -73,8 +73,8 @@ export default {
     /** 滚动预加载*/
 //    this.$refs.scrollContent.addEventListener('scroll', function (e) {
 //      // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-////        console.log(this.clientHeight);//可视区高度
-////        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+////        // console.log(this.clientHeight);//可视区高度
+////        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
 //      if (this.scrollHeight - this.scrollTop - this.clientHeight <= 600) {
 ////        that.getCookMenuList()
 //      }
@@ -90,7 +90,7 @@ export default {
       this.active = name
     },
     goToMenuDetail(id){
-        console.log(id)
+        // console.log(id)
       this.$router.push({name:'cookMenuDetail',params:{id:id,type:2}})
     },
     getCookMenuList(){//获取当前厨师的菜谱列表
@@ -100,9 +100,9 @@ export default {
         accountId:this.cookerId
       }).then(res=>{
           this.menuList = res.data.data.data
-        console.log(res.data)
+        // console.log(res.data)
       }).catch(err=>{
-          console.log(err)
+          // console.log(err)
       })
     },
     collapse(){//关注、取消关注

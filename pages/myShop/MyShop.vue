@@ -6,7 +6,7 @@
     <!--<section class="content" v-if="haveData" style="padding-bottom: 0">-->
     <section class="content"  style="padding-bottom: 0">
       <div class="about_me">
-        <div class="head_img"><img v-lazy="shopInfo.shopImg" alt=""></div>
+        <div class="head_img"><img v-if="shopInfo.shopImg" v-lazy="shopInfo.shopImg" alt=""></div>
         <div class="head_text">
           <h4>{{shopInfo.shopName}}</h4>
           <p>店铺ID:{{shopInfo.shopNo}}</p>
@@ -71,19 +71,9 @@ export default {
   },
   created(){
     this.shopInfo = JSON.parse(localStorage.getItem('shopInfo'))
-//    this.getTodaySumPrice()
+    // console.log(this.shopInfo)
   },
   methods:{
-//    getTodaySumPrice(){//获取今日的成交额度
-//      this.$http.post(this.API.sumPrice,{
-//          date:this.formatDate(new Date())
-//      }).then(res=>{
-//        console.log(res.data)
-//        this.todaySunPrice = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-//    },
     formatDate(d){
       return  d.getFullYear()+'-'+((d.getMonth()+1)>9?(d.getMonth()+1):('0'+(d.getMonth()+1)))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate())
     },

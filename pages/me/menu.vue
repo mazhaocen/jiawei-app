@@ -34,7 +34,6 @@
                 <p>{{i.creater}}</p>
               </div>
             </div>
-
             <p><button @click="editMenu('')" v-if="!myCreateMenuList.length">创建菜谱</button></p>
           </div>
         </mt-tab-container-item>
@@ -58,11 +57,14 @@
         <!--我收藏的菜谱列表-->
         <mt-tab-container-item id="meCollectMenu">
           <div class="menu-list cl">
-            <div class="fl pr" v-for="(i,index) in myCollectMenuList" :style="[index%2?{float:'right'}:'']" @click="goToMenuDetail(i.id)">
-              <span v-if="del" class="pa delete" @click.stop="deleteCollectMenu(i,index)">×</span>
-              <div class="menu-img"><img v-lazy="i.img"></div>
-              <h3>{{i.name}}</h3>
-              <p>{{i.operatetime}}</p>
+            <div class="cl">
+              <div class="fl pr" v-for="(i,index) in myCollectMenuList" :style="[index%2?{float:'right'}:'']" @click="goToMenuDetail(i.id)">
+                <span v-if="del" class="pa delete" @click.stop="deleteCollectMenu(i,index)">×</span>
+                <div class="menu-img"><img v-lazy="i.img"></div>
+                <h3>{{i.name}}</h3>
+                <p>{{i.operatetime}}</p>
+            </div>
+
             </div>
             <p><button @click="goToCharacter" v-if="!myCollectMenuList.length">前往浏览菜谱</button></p>
           </div>
@@ -156,7 +158,7 @@
       meSeenMenu(){
         Indicator.open()
         this.$http.post(this.API.myInfoList, {}).then(res => {
-          console.log(res.data.data.data)
+          // console.log(res.data.data.data)
           this.myInfoList = res.data.data.data
           Indicator.close()
         }).catch(err => {
@@ -169,7 +171,7 @@
           currentPage:'1',
           pageSize:'10'
         }).then(res => {
-          console.log(res.data.data.data);
+          // console.log(res.data.data.data);
           this.myCreateMenuList = res.data.data.data
           Indicator.close()
         }).catch(err => {
@@ -183,7 +185,7 @@
           currentPage:'1',
           pageSize:'10'
         }).then(res => {
-          console.log(res.data.data.data);
+          // console.log(res.data.data.data);
           this.myCollectMenuList = res.data.data.data
           Indicator.close()
         }).catch(err => {
@@ -203,7 +205,7 @@
             }).then(res=>{
               if(res.data.status==1){
                 this.myInfoList.splice(index,1)
-                console.log(res.data)
+                // console.log(res.data)
                 Toast({message: '删除成功！'});
                 Indicator.close()
               }
@@ -226,7 +228,7 @@
             }).then(res=>{
               if(res.data.status==1){
                 this.myCreateMenuList.splice(index,1)
-                console.log(res.data)
+                // console.log(res.data)
                 Toast({message: '删除成功！'});
                 Indicator.close()
               }
@@ -251,7 +253,7 @@
               if(res.data.status==1){
                 this.myCollectMenuList.splice(index,1);
                 Toast({message: '删除成功！'});
-                console.log(res.data)
+                // console.log(res.data)
               }
               Indicator.close()
             })
@@ -332,7 +334,7 @@
     display: inline-block;
   }
 
-  .menu-list > div > h3 {
+  .menu-list > div >div> h3 {
     font-size: 1rem;
     margin-top: .5rem;
     line-height: 1.7rem;
@@ -340,10 +342,13 @@
 
   }
 
+  .menu-list > div>div {
+    width: 14.056rem;
+  }
   .menu-list > div {
     padding-bottom: .5rem;
     text-align: left;
-    width: 14.056rem;
+    /*width: 14.056rem;*/
   }
 
   .menu-list>p>button {

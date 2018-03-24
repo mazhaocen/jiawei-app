@@ -35,7 +35,7 @@
           </div>
           <div class="recommend">
             <div class="first_recommend" @click="goToGoods(recommendList[0])">
-              <img v-lazy="recommendList[0].imgs" alt="">
+              <img v-if="recommendList[0]" v-lazy="recommendList[0].imgs" alt="">
               <p @click.stop="goToGoodsRecommend(recommendList[0])"><img src="../../assets/img/shop/recommend-btn1.png" alt=""></p>
             </div>
             <ul data-width="470" data-height="270" class="recommend_list">
@@ -107,6 +107,7 @@
       window.page = ''
       next()
     },
+
     created(){
       Indicator.open()
       this.getBannerData()
@@ -127,15 +128,15 @@
         var num = 0;
         var that = this;
         var bMap = api.require('bMap');
-        console.log(JSON.stringify(api.systemType));
+        // console.log(JSON.stringify(api.systemType));
         bMap.getLocationServices((ret, err) => {
           if (ret.enable) {
-            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(ret));
             if (api.systemType == 'ios') {
               bMap.initMapSDK((ret, err) => {
-                console.log(JSON.stringify(ret))
+                // console.log(JSON.stringify(ret))
                 if (ret.status) {
-                  console.log('ios 初始化地图成功')
+                  // console.log('ios 初始化地图成功')
                   getLoca()
                 }
               });
@@ -153,12 +154,12 @@
             autoStop: true,
             filter: 1
           }, function (ret, err) {
-            console.log(JSON.stringify(ret))
+            // console.log(JSON.stringify(ret))
             if (ret.status) {
-              console.log('获取坐标成功')
+              // console.log('获取坐标成功')
               getNameFromCoord(ret.lon, ret.lat)
             } else {
-              console.log(JSON.stringify(err))
+              // console.log(JSON.stringify(err))
               // that.gpserr = '错误 code'+err.code+'/错误信息'+err.msg
             }
           });
@@ -170,11 +171,11 @@
             lon: lon,
             lat: lat,
           }, function (ret, err) {
-            console.log(JSON.stringify(ret))
+            // console.log(JSON.stringify(ret))
             if (!ret.status) {
               num++;
               if (num > 10) {
-                console.log(JSON.stringify(err));
+                // console.log(JSON.stringify(err));
                 return
               }
               getNameFromCoord(lon, lat);
@@ -209,9 +210,9 @@
         }, function(ret, err) {
           if (ret) {
 //            alert(JSON.stringify(ret));
-            console.log(JSON.stringify(ret))
+            // console.log(JSON.stringify(ret))
             if (ret.eventType == 'success') {
-              console.log(JSON.stringify(ret.content))
+              // console.log(JSON.stringify(ret.content))
               sessionStorage.setItem('scanMessage',JSON.stringify(ret.content));
               that.$router.push({name:'scanInfo'})
             }
@@ -222,7 +223,7 @@
       },
       getNearbyGoods(){
           this.$http.post(this.API.nearbyGoods,{}).then(res=>{
-              console.log(res.data)
+              // console.log(res.data)
             this.nearbyList = res.data.data.data
           }).catch(err=>{
 
@@ -240,7 +241,7 @@
       getBannerData(){
         this.$http.post(this.API.indexBanner, {}).then(res => {
           this.bannerImg = res.data.data.data
-          console.log(res)
+          // console.log(res)
           Indicator.close()
           this.$refs.loadmore.onTopLoaded();
         }).catch(err => {
@@ -251,11 +252,11 @@
       getRecommendData(){
         this.$http.post(this.API.goods_recommend_list, {}).then(res => {
           this.recommendList = res.data.data.data
-//          console.log('推荐商品', res.data.data)
+//          // console.log('推荐商品', res.data.data)
           Indicator.close()
           this.$refs.loadmore.onTopLoaded();
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
           Indicator.close()
 
         })

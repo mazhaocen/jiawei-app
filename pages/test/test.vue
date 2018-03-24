@@ -31,10 +31,10 @@
     },
     methods:{
       getResult(value){
-          console.log(value)
+          // console.log(value)
       },
       checkName(name){
-          console.log(name)
+          // console.log(name)
       }
     },
     components:{

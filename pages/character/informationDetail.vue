@@ -88,7 +88,7 @@
   methods:{
     getInformationDetail(id){
       this.$http.post(this.API.infoDetail,{id:id}).then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
         this.data = res.data.data
       }).catch(err=>{
 
@@ -133,7 +133,7 @@
             menuId:1,
             favorId:this.infoId
           }).then(res=>{
-              console.log(res.data);
+              // console.log(res.data);
             if(res.data.status===1){
               this.data.hasFavored = true;
               this.data.countFavor++
@@ -158,7 +158,7 @@
         commentId:this.infoId,
         comment:this.commentText
       }).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
         if(res.data.status==1){
           this.getInformationDetail(this.infoId)
         }

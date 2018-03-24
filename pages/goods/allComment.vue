@@ -50,8 +50,8 @@
       /** 滚动预加载*/
       this.$refs.scrollContent.addEventListener('scroll', function (e) {
         // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
         if (this.scrollHeight - this.scrollTop - this.clientHeight <= 300) {
           that.getComment()
         }

@@ -89,7 +89,7 @@
         if(localStorage.getItem('shopInfo')){
           let shopInfo = JSON.parse(localStorage.getItem('shopInfo'));
           this.shopInfo = shopInfo
-//          console.log(shopInfo)
+//          // console.log(shopInfo)
 //          this.shopImg = shopInfo.logoLink
 //          this.shopName = shopInfo.name
 //          this.shopSign = shopInfo.slogan
@@ -131,7 +131,7 @@
         }).then(res=>{
             this.showCode=true;
           this.shopInfo.shopCode = res.data.data
-            console.log(res.data)
+            // console.log(res.data)
         })
       },
       saveEdit(type){//保存编辑内容
@@ -168,14 +168,14 @@
           shopName:this.shopInfo.shopName,
           shopMotto:this.shopInfo.shopMotto
         }).then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
           if(res.data.status==1){
               localStorage.setItem('userInfo',JSON.stringify(this.shopInfo))
             this.showTextEdit = false
           }
           Indicator.close();
         }).catch(err=>{
-            console.log(err)
+            // console.log(err)
           Indicator.close();
         })
       },
@@ -217,14 +217,14 @@
         name: 'keyback'
       }, function (ret) {
         if (ret) {
-          console.log('quxiao')
+          // console.log('quxiao')
           if(that.sheetVisible == true || that.showTextEdit == true|| that.showCode == true) {
             that.sheetVisible=false
             that.showTextEdit=false
             that.imageClip=false
             that.showCode=false
           }else{
-            console.log('fanhui')
+            // console.log('fanhui')
             that.G.goBack()
           }
 

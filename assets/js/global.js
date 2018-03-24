@@ -13,11 +13,11 @@ const goBack = () => {
     return new Promise((resolve, reject)=>{
        api.getPicture({
         sourceType: type, // （可选项）图片源类型， 从相册、图片库或相机获取图片 1:library 图片库; 2:camera 相机; 3:album 相册 默认值：library
-        encodingType: 'jpg', //（可选项）返回图片类型 jpg或png 默认值：png
+        // encodingType: 'jpg', //（可选项）返回图片类型 jpg或png 默认值：png
         destinationType: 'url',//（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串 1:base64 指定返回数据为base64;2:url指定返回数据为选取的图片地址 默认值：url
         // mediaValue:'pic', //（可选项）媒体类型，图片或视频  1:pic//图片;2:video 视频;3:all 图片和视频，Android不支持 默认值：pic
         // allowEdit: false, //（可选项）是否可以选择图片后进行编辑，支持iOS及部分安卓手机. 默认值：false
-        quality: 50, //可选项）图片质量，只针对jpg格式图片（0-100整数）默认值：50
+        quality: 80, //可选项）图片质量，只针对jpg格式图片（0-100整数）默认值：50
         // targetHeight:'',// 类型：数字  描述：（可选项）压缩后的图片高度，图片会按比例适配此高度. 默认值：原图高度
         saveToPhotoAlbum: true //描述：（可选项）拍照或录制视频后是否保存到相册. 默认值：false
       }, (ret, err) => {
@@ -43,8 +43,13 @@ const goBack = () => {
       img.src = url;
       img.onload = () => {//图片加载完成
         let canvas = document.createElement("canvas");
-        canvas.width = api.winWidth;
-        canvas.height = api.winWidth*ratio;
+        if(ratio){
+          canvas.width = api.winWidth*1.5;
+          canvas.height = api.winWidth*ratio*1.5;
+        }else {
+          canvas.width = api.winWidth*2;
+          canvas.height = img.height/(img.width/api.winWidth)*2;
+        }
         canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
         resolve(canvas.toDataURL('image/jpeg',0.9));
       }
@@ -58,7 +63,7 @@ const goBack = () => {
     return new Promise((resolve, reject)=>{
       let type = dataURI.split(',')[0].match(/:(.*?);/)[1];
       let img = atob(dataURI.split(',')[1]); //将 base64 进行解码
-      console.log('图片大小：'+(img.length/1024)+'kb');
+      // console.log('图片大小：'+(img.length/1024)+'kb');
       let ab = new ArrayBuffer(img.length);
       let array = new Uint8Array(ab);
       for (let i = 0; i < img.length; i++) {

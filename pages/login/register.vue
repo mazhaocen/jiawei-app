@@ -60,7 +60,7 @@
         this.$http.post(this.API.sendSms, {
           phone: this.phone
         }).then(res => {
-          console.log(JSON.stringify(res.data));
+          // console.log(JSON.stringify(res.data));
           let msg = '';
           if (res.data.status === 1) {//发送成功 提示 再次获得验证码倒计时
             msg = '发送成功，请查收短信!';
@@ -95,7 +95,7 @@
           password: this.password,
           serviceCode:this.serviceCode
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           Indicator.close();
           let msg = ''
           if (res.data.status === 1) {//注册成功 提示 前往登录页面
@@ -110,7 +110,7 @@
             message: msg
           });
         }).catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
           Indicator.close();
           Toast({
             message: '注册失败！',

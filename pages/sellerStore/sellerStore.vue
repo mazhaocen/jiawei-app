@@ -69,10 +69,10 @@ export default {
       this.$http.post(this.API.getShowById,{
         id:this.shopId,
       }).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
         this.shopInfo = res.data.data
       }).catch(err=>{
-          console.log(err)
+          // console.log(err)
       })
     },
     addShopCar(item){//添加购物车
@@ -86,13 +86,13 @@ export default {
         goodsImg: item.imgs
       };
       this.$http.post(this.API.shop_cart_add, params).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.status==1){
           Toast({message: '加入购物篮成功！'});
         }
         Indicator.close()
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
         Indicator.close()
       })
     },
@@ -108,7 +108,7 @@ export default {
 //        Indicator.close()
       }).catch(err=>{
 //        Indicator.close()
-        console.log(err)
+        // console.log(err)
       })
     },
     goToGoods2(item){//前往烹饪推荐页面

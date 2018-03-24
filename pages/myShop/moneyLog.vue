@@ -3,11 +3,11 @@
     <el-header className="go_back"  title="历史收入">
     </el-header>
     <section class="content" style="background-color: #efefef">
-      <p>本月</p>
+      <!--<p>本月</p>-->
       <ul class="logList">
-        <li class="cl"><span class="fl">2017-10-12</span> <span class="fr">￥：120</span></li>
-        <li class="cl"><span class="fl">2017-10-12</span> <span class="fr">￥：120</span></li>
-        <li class="cl"><span class="fl">2017-10-12</span> <span class="fr">￥：120</span></li>
+        <li class="cl" v-for="l in recodeList"><span class="fl">{{l.statusChangeTime.split(' ')[0]}}</span> <span class="fr">￥：{{l.totalPrice-l.logisticsFreight}}</span></li>
+        <!--<li class="cl"><span class="fl">2017-10-12</span> <span class="fr">￥：120</span></li>-->
+        <!--<li class="cl"><span class="fl">2017-10-12</span> <span class="fr">￥：120</span></li>-->
       </ul>
     </section>
   </div>
@@ -20,24 +20,11 @@
     name: 'moneyLog',
     data () {
       return {
-        images:[
-          {
-            base64:'',
-            statue:''
-          },
-          {
-            base64:'',
-            statue:''
-          },
-          {
-            base64:'',
-            statue:''
-          }
-        ]
+        recodeList:{}
       }
     },
     created(){
-
+      this.getShopOrder()
     },
     components: {
       'el-header': Header
@@ -57,6 +44,15 @@
 ////              alert('bu添加')
 //            }
 //        });
+      },
+      getShopOrder (){
+        this.$http.post(this.API.all_shopOrder,{
+          currentPage:1,
+          pageSize:100
+        }).then(res=>{
+            console.log(res)
+          this.recodeList = res.data.data.data
+        })
       }
     }
   }
@@ -65,6 +61,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .logList{
+    margin-top: .5rem;
   }
   .logList>li>span{
     font-size: 1.2rem;

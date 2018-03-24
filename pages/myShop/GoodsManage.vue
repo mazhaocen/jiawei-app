@@ -63,13 +63,13 @@ export default {
         shopId:this.shopInfo.id,
         status:status
       }).then(res=>{
-        console.log(res.data.data.data)
+        // console.log(res.data.data.data)
         this.items = res.data.data.data
         this.total = res.data.data.totalRow
         Indicator.close()
       }).catch(err=>{
         Indicator.close()
-        console.log(err)
+        // console.log(err)
       })
     },
     goodsOnShow(m,index){//商品上架
@@ -86,7 +86,7 @@ export default {
           }
         Indicator.close()
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
         Indicator.close()
       })
     },
@@ -105,7 +105,7 @@ export default {
         Indicator.close()
       }).catch(err=>{
         Indicator.close()
-        console.log(err)
+        // console.log(err)
       })
     },
     goodsDelete(m,index){//商品删除
@@ -118,7 +118,7 @@ export default {
         }
         Indicator.close()
       }).catch(err=>{
-        console.log(err);
+        // console.log(err);
         Indicator.close()
       })
     },
@@ -148,7 +148,7 @@ export default {
       sharedModule.share({
         text: '味人服务',
         type: 'url',
-        path:'https://www.baidu.com/'
+        path:'http://www.weirenfw.com/weirenService/apk/weirenService.apk'
       });
     }
 

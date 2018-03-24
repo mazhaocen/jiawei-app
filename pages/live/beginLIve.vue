@@ -93,7 +93,7 @@ export default {
         if(res.data.status==1){
           this.liveInfo.pullUrl = res.data.data.pullUrl
           sessionStorage.setItem('liveInfo',JSON.stringify(this.liveInfo))
-          console.log(JSON.stringify(this.liveInfo))
+          // console.log(JSON.stringify(this.liveInfo))
           api.openFrame({
             name: 'liveConfig',
             url: 'widget://html/liveConfig.html',
@@ -146,27 +146,27 @@ export default {
 //        fixedOn:'scan',
         fixed: true
       }, function (ret) {
-        console.log('初始化界面：'+JSON.stringify(ret));
+        // console.log('初始化界面：'+JSON.stringify(ret));
 
       });
     },
     beginPush(){
       var aliyunLive = api.require('aliyunLive');
       aliyunLive.startStream(function(ret){
-        console.log('开始推流：'+JSON.stringify(ret));
+        // console.log('开始推流：'+JSON.stringify(ret));
       });
     },
     stopPush(){
       var aliyunLive = api.require('aliyunLive');
       aliyunLive.stopStream(function(ret){
-        console.log('停止推流：'+JSON.stringify(ret));
+        // console.log('停止推流：'+JSON.stringify(ret));
       });
     },
     addPushEvent(){
         var that = this
       var aliyunLive = api.require('aliyunLive');
       aliyunLive.addConnectStatusListener(function(ret){
-        console.log('推流监听：'+JSON.stringify(ret));
+        // console.log('推流监听：'+JSON.stringify(ret));
         that.pushEvent = JSON.stringify(ret)
       });
     },
@@ -184,7 +184,7 @@ export default {
         businessId : 'video_live'
       }, function(ret, err) {
         if(ret){
-          console.log('初始化播放器：'+JSON.stringify(ret));
+          // console.log('初始化播放器：'+JSON.stringify(ret));
         }
       });
     },
@@ -195,9 +195,9 @@ export default {
         url:'http://videolive.weirenfw.com/weirenService/account_14_hd.flv?auth_key=1515571819-0-0-5733cb232a906cfee38f368d8172a779'
 //        url:'rtmp://pull-videocall.aliyuncs.com/test/stream6'
       }, function(ret, err) {
-        console.log('准备播放：'+JSON.stringify(ret));
+        // console.log('准备播放：'+JSON.stringify(ret));
         if(ret && ret.status){
-          console.log('准备播放：'+JSON.stringify(ret)+'===MediaPlayer Prepare Ready');
+          // console.log('准备播放：'+JSON.stringify(ret)+'===MediaPlayer Prepare Ready');
         }
       });
     },
@@ -217,7 +217,7 @@ export default {
       var that = this
       var mediaPlayer = api.require('aliyunLive');
       mediaPlayer.addEventListener(function(ret){
-        console.log('播放监听：'+JSON.stringify(ret));
+        // console.log('播放监听：'+JSON.stringify(ret));
         that.playEvent = JSON.stringify(ret)
       });
     },
@@ -226,7 +226,7 @@ export default {
       var mediaPlayer = api.require('aliyunLive');
       mediaPlayer.getErrorCode(function(ret){
         if(ret){
-          console.log('播放错误：'+ret.errorCode);
+          // console.log('播放错误：'+ret.errorCode);
           that.errCode= ret.errorCode
         }
       });

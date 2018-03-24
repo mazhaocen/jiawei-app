@@ -170,7 +170,7 @@
       }
     },
     created(){
-//      console.log(localStorage.getItem('userId'))
+//      // console.log(localStorage.getItem('userId'))
       if (localStorage.getItem('userId')) {
         Indicator.open('加载数据...')
         this.$http.post(this.API.show_chef_info, {
@@ -195,7 +195,7 @@
         })
           .catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       }
       window.page='userCenter'
@@ -339,7 +339,7 @@
         this.G.getBlobBydataURI(this.base64Url).then(res => {
           formData.append('img', res, "img_" + Date.parse(new Date()) + ".jpg");
           this.$http.post(this.API.user_uploadImg, formData, config).then(res => {
-            console.log('上传成功 返回的图片路径：' + JSON.stringify(res.data));
+            // console.log('上传成功 返回的图片路径：' + JSON.stringify(res.data));
             if (res.data.status === 1) {
               this.saveUserData(res.data.data)
             } else {
@@ -347,7 +347,7 @@
               Toast({message: res.data.message});
             }
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
             Toast({message: '失败！'});
             Indicator.close();
           })
@@ -386,7 +386,7 @@
           Toast({
             message: msg
           });
-          console.log(res.data)
+          // console.log(res.data)
         }).catch(err=>{
           Indicator.close();
         })
@@ -401,7 +401,7 @@
             localStorage.clear()
             sessionStorage.clear()
             this.$http.post(this.API.logout, {}).then(res => {
-              console.log(res)
+              // console.log(res)
               this.G.goBack()
             }).catch(err => {
 
@@ -419,7 +419,7 @@
             newPassword2:this.newPassword2
           }).then(res=>{
             let msg = '';
-              console.log(res.data)
+              // console.log(res.data)
             if(res.data.status==1){
               msg = '修改成功！'
               this.showPwdEdit=false
@@ -429,12 +429,12 @@
             }else{
               msg=res.data.message
             }
-            console.log(msg)
+            // console.log(msg)
             Indicator.close();
             Toast({message: msg});
           }).catch(err=>{
             Indicator.close();
-              console.log(err)
+              // console.log(err)
           })
       },
     },
@@ -444,7 +444,7 @@
         name: 'keyback'
       }, function (ret) {
         if (ret) {
-          console.log('quxiao')
+          // console.log('quxiao')
             if(that.sheetVisible == true || that.showTextEdit == true|| that.showAddEdit == true|| that.showPwdEdit == true|| that.showSelect == true) {
               that.sheetVisible= false
               that.showTextEdit= false
@@ -452,7 +452,7 @@
               that.showPwdEdit=false
               that.showSelect= false
             }else{
-                console.log('fanhui')
+                // console.log('fanhui')
                 that.G.goBack()
             }
         }

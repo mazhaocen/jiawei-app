@@ -85,8 +85,8 @@
       /** 滚动预加载*/
       this.$refs.scrollContent.addEventListener('scroll', function (e) {
           // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
         if (this.scrollHeight - this.scrollTop - this.clientHeight <= 600) {
           that.queryData()
         }
@@ -150,7 +150,7 @@
           this.goodsType =[{name:'全部',id:0}].concat(window.goodsType)
         }).catch(err => {
           Indicator.close();
-          console.log(err)
+          // console.log(err)
         })
       },
       queryData(){//查询商品列表
@@ -180,7 +180,7 @@
           this.searching = false;
           this.topStatus = false
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
     }
@@ -274,14 +274,14 @@
   }
 
   .info > button {
-    width: 6.667rem;
-    height: 2.333rem;
+    width: 6rem;
+    height: 2rem;
     background-color: #008842;
     color: #ffffff;
     position: absolute;
-    bottom: 0;
+    bottom: -0.4rem;
     right: 0;
-    line-height: 2.333rem;
+    line-height: 2rem;
     border-radius: 3px;
   }
 

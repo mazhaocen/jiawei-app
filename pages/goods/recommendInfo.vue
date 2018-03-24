@@ -103,7 +103,7 @@
           Indicator.close()
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
     },

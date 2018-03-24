@@ -16,7 +16,7 @@ window.onload = function () {
     style.appendChild(styleCss)
     head.appendChild(style)
     var systemVersion = api.systemVersion;
-    console.log(systemVersion)
+    // console.log(systemVersion)
     if (parseFloat(systemVersion) < 4.3) {
       api.alert({title: '提示', msg: 'Android系统版本为:' + systemVersion + ',请用更Android4.3以上系统使用此软件'})
     }
@@ -50,7 +50,7 @@ window.onload = function () {
             msg: '如果取消，创建或修改的信息将不被保存',
             buttons: ['确定', '取消']
           }, function(ret, err) {
-              // console.log(JSON.stringify(ret))
+              // // console.log(JSON.stringify(ret))
              if(ret.buttonIndex==1){
                window.isGoBack = true;
                history.go(-1)
@@ -62,7 +62,7 @@ window.onload = function () {
             msg: '如果取消，创建或修改的信息将不被保存',
             buttons: ['确定', '取消']
           }, function(ret, err) {
-            // console.log(JSON.stringify(ret))
+            // // console.log(JSON.stringify(ret))
             if(ret.buttonIndex==1){
               window.isGoBack = true;
               history.go(-1)
@@ -74,7 +74,7 @@ window.onload = function () {
             msg: '如果取消，创建或修改的信息将不被保存',
             buttons: ['确定', '取消']
           }, function(ret, err) {
-            // console.log(JSON.stringify(ret))
+            // // console.log(JSON.stringify(ret))
             if(ret.buttonIndex==1){
               window.isGoBack = true;
               history.go(-1)

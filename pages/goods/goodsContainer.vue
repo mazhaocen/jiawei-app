@@ -72,7 +72,7 @@
     },
     created(){
       if (sessionStorage.getItem('goodsInfo')) {
-          console.log(JSON.parse(sessionStorage.getItem('goodsInfo')))
+          // console.log(JSON.parse(sessionStorage.getItem('goodsInfo')))
         this.goods = JSON.parse(sessionStorage.getItem('goodsInfo'))
       }
       var name,that = this;
@@ -88,10 +88,10 @@
       let that = this;
       /** 滚动预加载*/
       this.$refs.scrollGoodsContainer.addEventListener('scroll', function (e) {
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollTop); // 滚动高度
-//        console.log(this.scrollHeight); // 文档高度
-//      console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollTop); // 滚动高度
+//        // console.log(this.scrollHeight); // 文档高度
+//      // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
         that.scrollTopD = {
             scrollHeight:this.scrollHeight,
           scrollTop:this.scrollTop,
@@ -99,7 +99,7 @@
       })
       if(sessionStorage.getItem('goodsAllInfo')){
         let goodsAllInfo = JSON.parse(sessionStorage.getItem('goodsAllInfo'))
-        console.log(goodsAllInfo.scrollTop)
+        // console.log(goodsAllInfo.scrollTop)
         let that = this
         setTimeout(function () {
           that.$refs.scrollGoodsContainer.scrollTop = goodsAllInfo.scrollTop
@@ -126,7 +126,7 @@
         this.active = name
       },
       getGoodsInfo(i){//获取商品详情
-        console.log(i)
+        // console.log(i)
         this.goods = i.goods;
         this.shopId = i.goods.shopId
         this.number = i.num
@@ -176,13 +176,13 @@
           goodsImg: goods.imgList[0]
         };
         this.$http.post(this.API.shop_cart_add, params).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           if(res.data.status==1){
             Toast({message: '加入成功！'});
           }
           Indicator.close()
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
           Indicator.close()
         })
       }

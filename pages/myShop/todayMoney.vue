@@ -3,7 +3,7 @@
     <el-header className="go_back"  title="今日收入"></el-header>
     <section class="content" style="background-color: #efefef">
       <img src="../../assets/img/myShop/moneyBag.png" alt="">
-      <p>¥5080.00</p>
+      <p>¥{{shopInfo.todayTotalPrice.toFixed(2)}}</p>
       <!--<button @click="openConfirm">转入银行卡</button>-->
       <span @click="goToMoneyLog">查看历史收入</span>
     </section>
@@ -30,11 +30,12 @@
             base64:'',
             statue:''
           }
-        ]
+        ],
+        shopInfo:{}
       }
     },
     created(){
-
+      this.shopInfo = JSON.parse(localStorage.getItem('shopInfo'))
     },
     components: {
       'el-header': Header

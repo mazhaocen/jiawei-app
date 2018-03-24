@@ -16,7 +16,7 @@
 
 <script>
   import Header from '@/components/Head'
-  import { MessageBox } from 'mint-ui';
+  import { MessageBox,  Indicator } from 'mint-ui';
   export default {
     name: 'setPwd',
     data () {
@@ -36,18 +36,20 @@
     },
     methods: {
       savePwd(){
+        Indicator.open()
           this.$http.post(this.API.my_shop_password,{
             id:this.shopInfo.id,
             payPassword:this.password1,
             payPassword2:this.password2
           }).then(res=>{
             if(res.data.status===1){
-//              this.userInfo.hasPwd = 1
-//              localStorage.setItem('userInfo',JSON.stringify(this.userInfo))
+              this.shopInfo.isExistPayPwd=1
+              localStorage.setItem('shopInfo',JSON.stringify(this.shopInfo));
+              Indicator.close()
                 this.G.goBack()
             }
           }).catch(err=>{
-
+            Indicator.close()
           })
       },
       checkPwd(){

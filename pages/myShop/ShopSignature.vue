@@ -32,7 +32,7 @@
     created(){
       this.shopInfo = JSON.parse(sessionStorage.getItem('shopInfo'))
       this.getTitle(this.$route.params.title)
-      console.log(this.shopInfo)
+      // console.log(this.shopInfo)
 
     },
     components: {
@@ -69,7 +69,7 @@
       shopNameUpdate () {
 //        updateShopName(this.shopText).then(res=>{
 //          Indicator.close()
-//          console.log(res)
+//          // console.log(res)
 //          this.shopInfo.name = this.shopText
 //          sessionStorage.setItem('shopInfo',JSON.stringify(this.shopInfo))
 //          Toast({
@@ -79,7 +79,7 @@
 //          history.go(-1)
 //        }).catch(err=>{
 //          Indicator.close()
-//          console.log(err.response)
+//          // console.log(err.response)
 //          Toast({
 //            message: '修改失败，请重试',
 //          });
@@ -88,7 +88,7 @@
       sloganUpdate () {
 //        updateShopSlogan(this.shopText).then(res=>{
 //          Indicator.close()
-//          console.log(res)
+//          // console.log(res)
 //           this.shopInfo.slogan = this.shopText
 //          sessionStorage.setItem('shopInfo',JSON.stringify(this.shopInfo))
 //          Toast({
@@ -98,7 +98,7 @@
 //          history.go(-1)
 //        }).catch(err=>{
 //          Indicator.close()
-//          console.log(err.response)
+//          // console.log(err.response)
 //          Toast({
 //            message: '修改失败，请重试',
 //          });

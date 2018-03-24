@@ -74,7 +74,7 @@
         this.getInformationData()
       }
       window.page='upInformation'
-     
+
     },
     destroyed () {
       window.page = ''
@@ -83,7 +83,7 @@
       changeFile(e){
         this.G.fileToBase64(e).then(res => {
           this.G.getBlobBydataURI(res).then(ret => {
-            console.log(ret)
+            // console.log(ret)
             this.onSave(ret)
           })
         })
@@ -94,7 +94,7 @@
           msg: '如果取消，创建或修改的信息将不被保存',
           buttons: ['确定', '取消']
         }, function (ret, err) {
-          console.log(JSON.stringify(ret))
+          // console.log(JSON.stringify(ret))
           if (ret.buttonIndex == 1) {
             window.isGoBack = true;
             history.go(-1)
@@ -106,41 +106,41 @@
         let config = {//添加请求头
           headers: {'Content-Type': 'multipart/form-data'}
          /* onUploadProgress:(event)=> {
-//              console.log(event)
+//              // console.log(event)
               if(event.lengthComputable){
                 let loaded = event.loaded,
                   total = event.total;
-//                console.log((loaded/total) * 100);
+//                // console.log((loaded/total) * 100);
                 this.$nextTick(() =>{
                     this.precent = parseInt((loaded/total) * 100)
-//                  console.log((loaded/total) * 100);
+//                  // console.log((loaded/total) * 100);
                 })
               }
             }*/
         };
           this.$http.post(this.API.info_uploadImg,this.formData,config).then(res => {//上传图片
-            console.log('上传成功 返回的图片路径：' + JSON.stringify(res.data));
+            // console.log('上传成功 返回的图片路径：' + JSON.stringify(res.data));
             if (res.data.status === 1) {
               if (this.infoId) { //有 id 更新资讯
-                console.log('这是更新资讯数据')
+                // console.log('这是更新资讯数据')
                 this.saveUpData(res.data.data)
               } else {  //没有 id 添加新的资讯
-                console.log('这是发布资讯数据')
+                // console.log('这是发布资讯数据')
                 this.addInfo(res.data.data)
               }
             }
           }).catch(err => {
-            console.log('报错了')
+            // console.log('报错了')
             Indicator.close();
-            console.log( JSON.stringify(err))
+            // console.log( JSON.stringify(err))
           })
       },
       onUpData(){//修改后保存资讯
         if (this.base64Url) {
-            console.log('需改图片了')
+            // console.log('需改图片了')
           this.onSave()
         } else {
-          console.log('没有需改图片')
+          // console.log('没有需改图片')
           Indicator.open('数据上传中...');
           this.saveUpData('')
         }
@@ -178,10 +178,10 @@
             msg = res.data.message
           }
           Toast({message: msg});
-          console.log(JSON.stringify(res.data));
+          // console.log(JSON.stringify(res.data));
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
       openCamera () { //拍照

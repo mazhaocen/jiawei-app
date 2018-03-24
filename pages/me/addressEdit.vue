@@ -189,7 +189,7 @@
         }
       },
       saveSetting () {
-        console.log(!this.addressInfo.province)
+        // console.log(!this.addressInfo.province)
           if(!this.addressInfo.name || !this.reg.name.test(this.addressInfo.name.trim())){
             this.nameErrMsg = '请正确填写送货人'
             return
@@ -210,7 +210,7 @@
         this.telErrMsg = ''
         this.addressErr = ''
         this.errAddressMsg = ''
-        console.log(this.addressInfo)
+        // console.log(this.addressInfo)
         if(this.addressInfo.id){
               this.editAddress()
         }else{
@@ -220,7 +220,7 @@
       },
       addNewAddress(){
         this.$http.post(this.API.receive_address_add,this.addressInfo).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
           if(res.data.status==1){
 //                localStorage.setItem('addressInfo',JSON.stringify(this.addressInfo))
 //                Toast({
@@ -231,13 +231,13 @@
           }
           Indicator.close()
         }).catch(err=>{
-          console.log(err)
+          // console.log(err)
           Indicator.close()
         })
       },
       editAddress(){
         this.$http.post(this.API.receive_address_update,this.addressInfo).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
           if(res.data.status==1){
 //                localStorage.setItem('addressInfo',JSON.stringify(this.addressInfo))
 //                Toast({
@@ -248,7 +248,7 @@
           }
           Indicator.close()
         }).catch(err=>{
-          console.log(err)
+          // console.log(err)
           Indicator.close()
         })
       }

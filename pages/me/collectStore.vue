@@ -41,10 +41,10 @@ export default {
       this.$http.post(this.API.myCollect,{
           menuId:4
       }).then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
         this.storeList= res.data.data.data
       }).catch(err=>{
-          console.log(err.data)
+          // console.log(err.data)
       })
     },
     goToSellerStore(i){
@@ -65,7 +65,7 @@ export default {
           }).then(res=>{
             if(res.data.status==1){
               this.array.splice(index,1);
-              console.log(res.data)
+              // console.log(res.data)
               Toast({message: '删除成功！'});
             }
             Indicator.close()

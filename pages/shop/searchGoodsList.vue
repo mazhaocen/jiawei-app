@@ -61,10 +61,10 @@
       'p-search': Search
     },
     created(){
-        console.log(window.isGoBack)
+        // console.log(window.isGoBack)
       if(window.isGoBack && sessionStorage.getItem('historySearchList')){//如果是返回到这个页面的 并且有历史搜索记录
         let historySearchList = JSON.parse(sessionStorage.getItem('historySearchList'))
-        console.log(historySearchList)
+        // console.log(historySearchList)
         this.searchList = historySearchList.list
         this.type = historySearchList.type;
         this.page = historySearchList.page;
@@ -85,8 +85,8 @@
       /** 滚动预加载*/
       this.$refs.scrollContent.addEventListener('scroll', function (e) {
 //         // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
         if (this.scrollHeight - this.scrollTop - this.clientHeight <= 800) {
           that.getSearchData()
         }
@@ -141,7 +141,7 @@
           Indicator.close()
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
       showStatus(data){
@@ -161,7 +161,7 @@
           key: this.keywords,
           scrollTop: this.$refs.scrollContent.scrollTop
         };
-        console.log(historySearchList)
+        // console.log(historySearchList)
         sessionStorage.setItem('historySearchList', JSON.stringify(historySearchList))
         this.$router.push({name: 'goodsContainer'})
       }

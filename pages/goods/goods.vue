@@ -97,18 +97,18 @@
         this.$http.post(this.API.my_shop_goods_show, {
           id: this.goodsInfo.id?this.goodsInfo.id:this.goodsInfo.goodsId
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.goods = res.data.data
           this.$emit('goodsInfo',{
               goods:this.goods,
               num:this.number
           })
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       },
       goToSellerStore(){//前往商品所在店铺
-        console.log(this.goods.shopId)
+        // console.log(this.goods.shopId)
         this.$router.push({name: 'sellerStore',params:{shopId:this.goods.shopId}})
       },
       allComment(){
@@ -259,6 +259,8 @@
   .goods-info > span {
     font-size: .889rem;
     color: #8f8f8f;
+    white-space: normal;
+    /*overflow:hidden;*/
   }
 
   .goods-info > h3 > span {

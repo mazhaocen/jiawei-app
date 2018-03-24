@@ -4,11 +4,12 @@
 import Vue from 'vue'
 import axios from 'axios'
 import router from '../router/index'
+import {Indicator} from 'mint-ui'
 Vue.prototype.$http = axios;
 axios.defaults.withCredentials=true;
-axios.defaults.timeout=5000;
+axios.defaults.timeout=0;
 // axios.defaults.baseURL='base/weirenService/app/';
-axios.defaults.baseURL='http://119.23.209.222/weirenService/app/';
+axios.defaults.baseURL='http://www.weirenfw.com/weirenService/app/';
 
 // let url = '/mock'
 
@@ -25,16 +26,18 @@ axios.interceptors.response.use(function (res) {
   // 对响应数据做点什么
   if(res.data.errorCode=='-2'){
     // localStorage.clear()
-    router.replace({name:'Login'});
+    router.push({name:'Login'});
+    Indicator.close()
     return
   }
-  // console.log(res)
+  // // console.log(res)
   let response={
     data:res.data,
   }
   return response;
 }, function (error) {
   // 对响应错误做点什么
+  Indicator.close()
   return Promise.reject(error);
 });
 
@@ -47,8 +50,10 @@ Vue.prototype.API = {
   login:'account/login/new',//登录(新)
   login3:'account/login/tx',//第三方登录
   sendSms:'account/sendSms',//发送手机验证码
+  resetSendSms:'account/resetSendSms',//发送手机验证码
   logout:'account/logout',//退出登录
   upPassword:'account/modifyPwd',//修改登录密码
+  resetPwd:'account/resetPwd',//重置密码
   /** 资讯*/
   info_uploadImg:'information/uploadImg',//新增资讯图片
   addInfo:'information/add',//新增资讯
@@ -129,7 +134,7 @@ Vue.prototype.API = {
   withdraw_check:'shopWithdraw/check',//提现验证
   withdraw_record:'shopWithdraw/record',//提现记录
   goods_comment:'goods/searchCommentByGoodsId',//获取商品评价
-
+  all_shopOrder:'shopOrder/all',//我店铺订单所有订单
 
   /** */
   my_shop_goods_type:'goodsType/all',//商品类别查询
@@ -171,35 +176,35 @@ Vue.prototype.API = {
   /** */
 };
 
-let getGoodsManageList = () => {
-  return axios({
-    method: 'get',
-    url: url+'/goodsManageList.json',
-    data: {
-      // firstName: 'Fred',
-      // lastName: 'Flintstone'
-    }
-  })
-}
-
-let getInformations = (page) =>{
-  return axios({
-    method:'POST',
-    url:url+'information/selectOnlineInformations',
-    data:page
-  })
-}
-let myOnlineInformations = (page)=>{
-  return axios({
-    method:'POST',
-    url:'/base/information/myOnlineInformations',
-    data:page
-  })
-}
+// let getGoodsManageList = () => {
+//   return axios({
+//     method: 'get',
+//     url: url+'/goodsManageList.json',
+//     data: {
+//       // firstName: 'Fred',
+//       // lastName: 'Flintstone'
+//     }
+//   })
+// }
+//
+// let getInformations = (page) =>{
+//   return axios({
+//     method:'POST',
+//     url:url+'information/selectOnlineInformations',
+//     data:page
+//   })
+// }
+// let myOnlineInformations = (page)=>{
+//   return axios({
+//     method:'POST',
+//     url:'/base/information/myOnlineInformations',
+//     data:page
+//   })
+// }
 
 
 export {
-  getGoodsManageList,
-  getInformations,
-  myOnlineInformations
+  // getGoodsManageList,
+  // getInformations,
+  // myOnlineInformations
 }

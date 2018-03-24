@@ -75,10 +75,10 @@ export default {
       this.$http.post(this.API.myCollect,{
         menuId:3
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         this.cookerList = res.data.data.data
       }).catch(err=>{
-        console.log(err.data)
+        // console.log(err.data)
       })
     },
   }

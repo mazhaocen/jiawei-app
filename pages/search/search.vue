@@ -72,7 +72,7 @@
           sessionStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
         }
 //        this.$router.push({name:'searchList',params:{keyword:this.keywords}});
-        console.log(this.keywords)
+        // console.log(this.keywords)
         this.$emit('showStatus',{
           showStatus:false,
           keywords:this.keywords,

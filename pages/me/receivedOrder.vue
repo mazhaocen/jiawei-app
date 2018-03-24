@@ -110,7 +110,7 @@ export default {
           this.chooseTime(this.orderType==2?1:3)
         }
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     chooseOrder(i,item){//选择订单

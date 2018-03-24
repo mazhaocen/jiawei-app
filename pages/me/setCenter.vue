@@ -6,7 +6,7 @@
         <!--<li>修改密码</li>-->
         <li>客服热线 <span class="fr">0755-26905891</span></li>
         <li>清除缓存</li>
-        <li>版本更新 <span class="fr">v.1.2.3</span></li>
+        <li>版本更新 <span class="fr">{{appVersion}}</span></li>
         <li @click="goToAbout">关于我们</li>
         <li @click="leaveApp">退出应用</li>
       </ul>
@@ -23,11 +23,11 @@
     name: 'setCenter',
     data () {
       return {
-
+        appVersion:''
       }
     },
     created(){
-
+      this.appVersion = api.appVersion;
     },
     components: {
       'el-header': Header,

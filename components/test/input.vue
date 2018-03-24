@@ -24,8 +24,8 @@
     methods:{
       updateValue(value) {  // 更新input数据 传递到父组件
 ////        let resultValue = value.trim().slice(0, value.indexOf('.') + 3)
-//        console.log(value)
-//        console.log(value.indexOf('.'))
+//        // console.log(value)
+//        // console.log(value.indexOf('.'))
 //        if(value.indexOf('.')!==-1){
 //          this.resultValue = value.trim().slice(0 , value.indexOf('.')+ 3)
 //        }else{
@@ -42,15 +42,15 @@
          }
         this.verifiedEmpty = false
 //         if((this.reg[this.regType]).test(value)){
-//             console.log('对的')
+//             // console.log('对的')
 //           this.verifiedResults = false
 //         }else{
-//             console.log('错的')
+//             // console.log('错的')
 //           this.verifiedResults = true
 //         }
 
-//          console.log(value)
-//         console.log(this.toDecimal2(value))
+//          // console.log(value)
+//         // console.log(this.toDecimal2(value))
 //        this.resultValue = this.toDecimal2(value)
 //        this.$refs.input.value = this.resultValue
         this.$emit('formatValue',value)

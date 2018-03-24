@@ -4,9 +4,10 @@
     <section class="content">
 
       <div class="menu-head cl">
-        <div class="big-img"><img v-lazy="menuData.coverImg" alt=""></div>
+        <div class="big-img"><img v-if="menuData.coverImg" v-lazy="menuData.coverImg" alt=""></div>
         <div class="head-text pr">
-          <p style="line-height: 2rem;padding-left: 7rem; margin-bottom: 1rem;height: 2rem;"><b><img v-lazy="menuData.accountImg" alt=""></b>{{menuData.creater}}
+          <p style="line-height: 2rem;padding-left: 7rem; margin-bottom: 1rem;height: 2rem;">
+            <b><img v-if="menuData.accountImg" v-lazy="menuData.accountImg" alt=""></b>{{menuData.creater}}
             <a class="pa" @click="cookerCollect(menuData.accountId)" :class="{'on':menuData.hasChefCollected}">{{menuData.hasChefCollected ? '已关注' : '关注'}}</a>
           </p>
           <p class="cl"><i class="fl">心德：</i><span>{{menuData.tip}}</span></p>
@@ -130,7 +131,7 @@
         this.$http.post(this.API.menu_detail, {
           id: this.menuId
         }).then(res => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           if(!res.data.data.commentList){
             res.data.data.commentList=[]
           }
@@ -181,13 +182,13 @@
             menuId: 2,
             collectId: this.menuId
           }).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.status === 1) {
               this.menuData.hasCollected = true;
               this.menuData.countCollect++
             }
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
           })
         }
       },
@@ -206,12 +207,12 @@
             menuId: 3,
             collectId: id
           }).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.status === 1) {
               this.menuData.hasChefCollected = true;
             }
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
           })
         }
       },
@@ -245,7 +246,7 @@
             this.replayContent='';
           }
           Indicator.close()
-//          console.log(res.data)
+//          // console.log(res.data)
         }).catch(err=>{
           Indicator.close()
         })
@@ -256,7 +257,7 @@
             menuId: 2,
             favorId: this.menuId
           }).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.status === 1) {
               this.menuData.hasFavored = true;
               this.menuData.countFavor++
@@ -327,7 +328,7 @@
         sharedModule.share({
           text: '味人服务',
           type: 'url',
-          path:'https://www.baidu.com/'
+          path:'http://www.weirenfw.com/weirenService/apk/weirenService.apk'
         });
       }
     }
@@ -614,7 +615,7 @@
   .big-img {
     width: 100%;
     height: 21.611rem;
-    background: url("../../assets/img/cook/menuimg1.png") no-repeat center / 14.167rem;
+    background: url("../../assets/img/cook/menuimg1.png") no-repeat center center / cover;
   }
 
   .head-text {
@@ -649,6 +650,7 @@
     overflow: hidden;
     top:-2.3rem;
     left:1rem;
+    background: url("../../assets/img/cook/menuimg1.png") no-repeat center / cover;
   }
   .head-text > p {
     white-space: normal;

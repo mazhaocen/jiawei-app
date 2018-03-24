@@ -68,12 +68,14 @@
             <a class="fl" @click="addKeyWord" v-if="goods.keywordList.length<3">添加</a>
             <i>{{goods.keywordList.length}}/3</i>
           </div>
+          <p style="padding-left: 1rem;color: #007aff;">关键词(如：青菜、牛肉)方便用户搜索到您的商品</p>
           <div >
             <p>宝贝详情</p>
             <ul class="detailImgList cl">
               <li v-for=" (img,index) in goods.detailImgList " @click="choosePic(index,'detail')">
                 <img v-lazy="img" alt="">
-                <b v-if="goodsId" @click.stop="delDetailImg(index)">×</b>
+                <!--<b v-if="goodsId" @click.stop="delDetailImg(index)">×</b>-->
+                <b @click.stop="delDetailImg(index)">×</b>
               </li>
               <div class="add_detailImg" v-if="goods.detailImgList.length<6" @click="choosePic(-1,'detail')"></div>
             </ul>
@@ -162,13 +164,13 @@
       this.goodsId = this.$route.params.goodsId
       if(!window.goodsType){
         this.$http.post(this.API.my_shop_goods_type, {}).then(res => {//获取商品分类列表
-          console.log(res.data)
+          // console.log(res.data)
          this.goodsType = window.goodsType = res.data.data.data;
           if (this.goodsId) {
             this.getGoodsInfo()//获取单个商品详情
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       }else{
         this.goodsType = window.goodsType;
@@ -202,7 +204,7 @@
           Indicator.close()
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
       addKeyWord(){//添加关键词
@@ -282,7 +284,7 @@
         this.titleErrMsg = ''
         this.typeErrMsg = ''
         this.descriptionErr = ''
-//        console.log(!this.goods.name, this.goods.typeList.length === 0, !this.goods.detail);
+//        // console.log(!this.goods.name, this.goods.typeList.length === 0, !this.goods.detail);
         if (!this.goods.name) {
           this.titleErrMsg = '请输入商品标题'
           return false
@@ -302,27 +304,35 @@
           this.ratio = 0.659;
           this.picType = 'head'
         } else if (type === 'detail') {
-          this.ratio = 0.741;
+          this.ratio = '';
           this.picType = 'detail'
         }
       },
       openCamera () { //拍照
         this.G.getPicture('camera', this).then(res => {
           this.fsImgUrl = res;
-          this.imageClip = true
+          if(this.picType==='detail'){
+              this.resultImage(res)
+          }else {
+            this.imageClip = true
+          }
         })
       },
       openAlbum () { // 相册
         this.G.getPicture('album', this).then(res => {
           this.fsImgUrl = res;
-          this.imageClip = true
+          if(this.picType==='detail'){
+            this.resultImage(res)
+          }else {
+            this.imageClip = true
+          }
         })
       },
       resultImage (url) {  //裁剪后的图片地址
         if (url) {
           this.G.getBase64Image(url, this.ratio).then(res => {
-            console.log('选择的序号' + this.picNum)
-            console.log(res)
+            // console.log('选择的序号' + this.picNum)
+            // console.log(res)
             if (this.picNum >= 0) {
               if (this.picType === 'head') {
                 this.goods.imgList.splice(this.picNum, 1, res)
@@ -337,8 +347,8 @@
                 this.goods.detailImgList.push(res)
               }
             }
-            console.log(JSON.stringify(this.goods.imgList));
-            console.log(JSON.stringify(this.goods.detailImgList));
+            // console.log(JSON.stringify(this.goods.imgList));
+            // console.log(JSON.stringify(this.goods.detailImgList));
           });
         } else {
           this.picNum = -1
@@ -352,7 +362,7 @@
         let imgListArr = []
         let detailImgListArr = [];
         goods.imgList.forEach(function (n) {
-          console.log('imglist' + JSON.stringify(n))
+          // console.log('imglist' + JSON.stringify(n))
           if (n.indexOf('base64') != -1) {
             imgListArr.push(n.split(',')[1])
           } else {
@@ -360,7 +370,7 @@
           }
         });
         goods.detailImgList.forEach(function (m) {
-          console.log('detailImgList' + JSON.stringify(m))
+          // console.log('detailImgList' + JSON.stringify(m))
           if (m.indexOf('base64') != -1) {
             detailImgListArr.push(m.split(',')[1])
           } else {
@@ -374,27 +384,27 @@
         goods.shopType = this.shopInfo.type
         Indicator.open()
         if (this.goodsId) {
-          console.log('编辑保存'+JSON.stringify(goods));
+          // console.log('编辑保存'+JSON.stringify(goods));
           this.$http.post(this.API.my_shop_goods_edit, goods).then(res => {
-            console.log(JSON.stringify(res.data))
+            // console.log(JSON.stringify(res.data))
             if (res.data.status == 1) {
               this.G.goBack()
             }
             Indicator.close()
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
             Indicator.close()
           })
         } else {
-          console.log('添加保存'+JSON.stringify(goods));
+          // console.log('添加保存'+JSON.stringify(goods));
           this.$http.post(this.API.my_shop_goods_add, goods).then(res => {
-            console.log(JSON.stringify(res.data))
+            // console.log(JSON.stringify(res.data))
             if (res.data.status == 1) {
                 this.G.goBack()
             }
             Indicator.close()
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
             Indicator.close()
           })
         }

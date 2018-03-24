@@ -36,7 +36,7 @@
         }else{
           this.transformX =this.transformStartX + temp;
         }
-        console.log(this.transformX);
+        // console.log(this.transformX);
       },
       touchEnd(e){
         e.preventDefault();

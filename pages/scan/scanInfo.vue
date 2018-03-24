@@ -9,7 +9,7 @@
         <p class="number">店铺号码:<span>{{shopInfo.shopNo}}</span></p>
       </div>
       <div class="btn">
-        <button @click="goToPay()">支付</button>
+        <!--<button @click="goToPay()">支付</button>-->
         <button @click="collapse()">{{shopInfo.hasCollected?'已关注':'关注本店'}}</button>
       </div>
     </section>
@@ -27,7 +27,7 @@ export default {
   },
   created(){
     this.scanMessage = JSON.parse(sessionStorage.getItem('scanMessage')).split('|');
-    console.log(sessionStorage.getItem('scanMessage'))
+    // console.log(sessionStorage.getItem('scanMessage'))
     this.getShopInfo(this.scanMessage[0])
   },
   methods:{
@@ -38,10 +38,10 @@ export default {
       this.$http.post(this.API.getShowById,{
           id:shopId
       }).then(res=>{
-          console.log(JSON.stringify(res.data))
+          // console.log(JSON.stringify(res.data))
         this.shopInfo = res.data.data
       }).catch(err=>{
-          console.log(err)
+          // console.log(err)
       })
     },
     collapse(){//关注店铺

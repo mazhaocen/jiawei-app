@@ -10,7 +10,7 @@
     <div class="btn-s cl">
       <div v-if="!phone.trim() || !(password.trim())" class="login-btn ">登录</div>
       <div v-if="phone.trim() && password.trim()" class="login-btn on" @click="singIn">登录</div>
-      <p class="fr">忘记密码</p>
+      <p class="fr" @click="goToForgotPwd">忘记密码</p>
     </div>
     <div class="other-login cl">
       <p>或一键登录:</p>
@@ -48,7 +48,7 @@
           qq.getUserInfo((ret, err)=> {
             if (ret.status) {
 //              api.alert({ msg: JSON.stringify(ret) });
-              console.log(JSON.stringify(ret))
+              // console.log(JSON.stringify(ret))
               let info;
               if (api.systemType == 'ios') {
                 info  = ret.info
@@ -58,7 +58,7 @@
               this.logoin3('QQ',openId,info.nickname,info.figureurl_qq_2)
             } else {
               MessageBox('提示', err.msg);
-              console.log(JSON.stringify(err))
+              // console.log(JSON.stringify(err))
             }
           });
 
@@ -73,20 +73,20 @@
 //          alert(JSON.stringify(ret));
 //          alert(JSON.stringify(err));
           if (ret.status) {
-            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(ret));
             wx.getToken({//微信授权成功后 获取 token 信息
               apiKey: 'wx4fb8f98522d08bc4',
               apiSecret: '676b9357d92b225e6db805c4143cca0d',
               code: ret.code
             }, function(ret, err) {
               if (ret.status) {
-                console.log(JSON.stringify(ret));
+                // console.log(JSON.stringify(ret));
                 wx.getUserInfo({//获取 token 成功后 获取用户信息
                   accessToken: ret.accessToken,
                   openId: ret.openId
                 }, function(ret, err) {
                   if (ret.status) {
-                    console.log(JSON.stringify(ret));
+                    // console.log(JSON.stringify(ret));
                     that.logoin3("微信",ret.openid,ret.nickname,ret.headimgurl)
                   } else {
                     alert(err.code);
@@ -125,9 +125,9 @@
             nickName:nickName,
             headImg:headImg
           };
-          console.log('用户信息：'+JSON.stringify(params))
+          // console.log('用户信息：'+JSON.stringify(params))
           this.$http.post(this.API.login3,params).then(res=>{
-              console.log(JSON.stringify(res.data))
+              // console.log(JSON.stringify(res.data))
             let msg=''
             if(res.data.status==1){
               msg = '登录成功!';
@@ -145,7 +145,7 @@
               message: msg
             });
           }).catch(err=>{
-              console.log(err)
+              // console.log(err)
           })
       },
       singIn(){
@@ -173,7 +173,7 @@
           });
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
       getUserInfo(){
@@ -184,8 +184,11 @@
             localStorage.setItem('userInfo',JSON.stringify(res.data.data));
             this.G.goBack()
           }).catch(err => {
-              console.log(err)
+              // console.log(err)
           })
+      },
+      goToForgotPwd(){
+        this.$router.push({name:'ForgotPwd'})
       }
     }
   }

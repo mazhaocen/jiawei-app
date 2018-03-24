@@ -2,7 +2,7 @@
   <div class="createMenu">
     <el-header title="创建菜谱">
       <a class="cancel" @click="cancelCrated">取消</a>
-      <a href="" class="pa" style="right: 0;font-size: 1.333rem;color:#008842;">发布</a>
+      <!--<a href="" class="pa" style="right: 0;font-size: 1.333rem;color:#008842;">发布</a>-->
     </el-header>
     <section class="content" style="padding-bottom: 0">
       <div style="padding-left:1rem;padding-right:1rem;">
@@ -22,7 +22,7 @@
           <p>可用到: <span><i v-for="i in auxiliaryMaterialList" @click="chooseAuxiliaryMaterial(i)" :class="{'on':menuData.auxiliaryMaterial.indexOf(i)!=-1}">{{i}}</i></span></p>
           <h3>做法</h3>
           <h4 v-for="(step,index) in menuData.stepList">
-            <span>步骤{{index + 1}}</span><span class="fr" style="font-weight: normal;color: #ff5956;" v-if="menuData.stepList.length>=3" @click="delStep(index)">删除</span>
+            <span>步骤{{index + 1}}</span><span class="fr" style="font-weight: normal;color: #ff5956;width: 3rem" v-if="menuData.stepList.length>=3" @click="delStep(index,step)">删除</span>
             <!--<i @click="addImg(0.6,index)"></i>-->
             <p @click="addImg(0.572,index)">
               <i>+</i>
@@ -106,8 +106,7 @@
           name: '在相册中选择',
           method: this.openAlbum
         }],
-
-
+        copySteps:''
       }
     },
     created(){
@@ -145,18 +144,25 @@
           this.menuData.stepList.push({
             stepDesc: "",
             stepImg: ""
-          })
+          });
 //        }
 
       },
-      delStep(index){
+      delStep(index,step){
         MessageBox({
           title: '提示',
           message: '您确认删除此步骤吗？',
           showCancelButton: true
         }).then(res => {
           if (res === 'confirm') {
+            this.copySteps.forEach(function (n) {
+              if(n.id==step.id){
+                  n.stepDesc=null;
+                  n.stepImg=null
+              }
+            });
             this.menuData.stepList.splice(index,1)
+
           }
         });
 
@@ -167,7 +173,7 @@
           msg: '如果取消，创建或修改的信息将不被保存',
           buttons: ['确定', '取消']
         }, function(ret, err) {
-          console.log(JSON.stringify(ret))
+          // console.log(JSON.stringify(ret))
           if(ret.buttonIndex==1){
             window.isGoBack = true;
             history.go(-1)
@@ -187,12 +193,14 @@
       openCamera () { //拍照
         this.G.getPicture('camera', this).then(res => {
           this.fsImgUrl = res;
+
           this.imageClip = true
         })
       },
       openAlbum () { // 相册
         this.G.getPicture('album', this).then(res => {
           this.fsImgUrl = res;
+          console.log(this.fsImgUrl)
           this.imageClip = true
         })
       },
@@ -246,11 +254,35 @@
             menudata.stepList[i].stepImg=''
           }
         }
-        menudata.auxiliaryMaterial = menudata.auxiliaryMaterial.join(',')
-//        console.log(JSON.stringify(menudata));
+//        console.log();
+        if(typeof menudata.auxiliaryMaterial=='string'){
+          menudata.auxiliaryMaterial = menudata.auxiliaryMaterial.split(',').join(',')
+        }else {
+          menudata.auxiliaryMaterial = menudata.auxiliaryMaterial.join(',')
+        }
+
+//        this.copyMenuData.stepList = menudata.auxiliaryMaterial.join(',')
+        // console.log(JSON.stringify(menudata));
+//        console.log(menudata)
+//        return
         if(this.menuId){//保存编辑的菜谱
+          let that = this
+          menudata.stepList.forEach(function (n,i) {
+              if(!n.id){
+                that.copySteps.push(n)
+              }
+            that.copySteps.forEach(function (m) {
+              if(n.id===m.id){
+                m.stepImg=n.stepImg
+                m.stepDesc = n.stepDesc
+              }
+            })
+          });
+          menudata.stepList = this.copySteps
+
+//          Indicator.close()
           this.$http.post(this.API.menu_update,menudata).then(res=>{
-            console.log(JSON.stringify(res.data))
+            // console.log(JSON.stringify(res.data))
             if (res.data.status === 1) {
               let msg = '';
               if (res.data.status === 1) {
@@ -267,11 +299,11 @@
           })
         }else{//保存新增的菜谱
           this.$http.post(this.API.menu_add,menudata).then(res=>{
-//            console.log(JSON.stringify(res.data))
+//            // console.log(JSON.stringify(res.data))
             if (res.data.status === 1) {
               let msg = '';
               if (res.data.status === 1) {
-                msg = '保存成功！';
+                msg = '发布成功！';
                 this.toBeCooker()
                 this.G.goBack()
               } else {
@@ -281,8 +313,8 @@
             }
             Indicator.close()
           }).catch(err=>{
-            console.log(JSON.stringify(err))
-            Indicator.close()
+            // console.log(JSON.stringify(err))
+            Indicator.close();
             Toast({message: '失败'});
           })
         }
@@ -316,19 +348,21 @@
       },
       toBeCooker(){
         this.$http.post(this.API.toBe_cooker,{}).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
         }).catch(err=>{
-            console.log(err)
+            // console.log(err)
         })
       },
       getMenuDetailData(){//编辑菜谱获取菜谱详情
         Indicator.open()
           this.$http.post(this.API.menu_detail,{id:this.menuId}).then(res=>{
-              console.log(res.data)
+              // console.log(res.data)
             this.menuData = res.data.data
+            this.menuData.auxiliaryMaterial = this.menuData.auxiliaryMaterial.split(',')
+            this.copySteps = JSON.parse(JSON.stringify(res.data.data.stepList))
             Indicator.close()
           }).catch(err=>{
-              console.log(err)
+              // console.log(err)
             Indicator.close()
           })
       }

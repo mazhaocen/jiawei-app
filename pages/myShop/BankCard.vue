@@ -14,7 +14,6 @@
           <!--<li><span>手机号</span><input type="text" placeholder="请输入银行预留手机号码"></li>-->
         </ul>
         <span style="line-height: 4rem;padding: 1rem">温馨提示：请正确填写银行信息，否则无法提现！</span>
-        <!--<label class="pd-1"><p class="fl pd-1" @click="agreeBind"><i :class="{active:agree}"></i> 同意</p><span>《用户协议》</span></label>-->
         <button class="pd-1 dis" v-if="!bankCardType || !bankCardNo || !bankCardOwner">确定</button>
         <button class="pd-1" v-if="bankCardType && bankCardNo && bankCardOwner" @click="bindCard">确定</button>
       </div>
@@ -30,7 +29,6 @@
           <!--<li><span>手机号</span><input type="text" placeholder="请输入银行预留手机号码"></li>-->
         </ul>
         <span style="line-height: 4rem;padding: 1rem">温馨提示：请正确填写银行信息，否则无法提现！</span>
-        <!--<label class="pd-1"><p class="fl pd-1" @click="agreeBind"><i :class="{active:agree}"></i> 同意</p><span>《用户协议》</span></label>-->
         <button class="pd-1 dis" v-if="!bankCardType || !bankCardNo || !bankCardOwner">保存</button>
         <button class="pd-1" v-if="bankCardType && bankCardNo && bankCardOwner" @click="bindCard">保存</button>
       </div>
@@ -87,12 +85,6 @@
         }).catch(err=>{
 
           })
-      },
-      agreeBind () {
-        this.agree = !this.agree
-      },
-      goToVerifyPhone () {
-        this.$router.push({name:'VerifyPhone'})
       }
     }
   }

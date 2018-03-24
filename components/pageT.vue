@@ -23,13 +23,13 @@ export default {
 //    }else{
 //      this.transitionName ='slide';
 //    }
-//    console.log(this.transitionName);
+//    // console.log(this.transitionName);
 //    window.isGoBack = false;
 //  },
- 
+
 //  watch: {
 //    '$route' (to, from) {
-//        console.log(window.isGoBack);
+//        // console.log(window.isGoBack);
 //
 //    }
 //  },
@@ -40,7 +40,7 @@ export default {
       }else{
         this.transitionName ='slide';
       }
-      console.log(this.transitionName);
+      // console.log(this.transitionName);
       window.isGoBack = false;
     }
   }

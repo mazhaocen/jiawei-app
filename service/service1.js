@@ -79,7 +79,7 @@ let photoNumberLogin  = (userName, msgCode) =>{ //手机+验证码登录
 }
 
 let updateShopLogo = (base64) =>{ //更新商户LOGO
-  console.log(base64)
+  // console.log(base64)
   return axios({
     method:'PUT',
     url: url + '/service-api/merchant/'+sessionStorage.getItem('shopID')+'/logo',

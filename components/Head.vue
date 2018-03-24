@@ -32,7 +32,7 @@ export default {
 //            if(api.systemType=='android'){
 
 //              let o = document.querySelector('.content')
-//              console.log(o.offsetHeight,document.getElementById('html').offsetHeight);
+//              // console.log(o.offsetHeight,document.getElementById('html').offsetHeight);
 
 
 //              history.go(-1)

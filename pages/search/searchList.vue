@@ -151,8 +151,8 @@
       this.$refs.scrollContent.scrollTop=this.scrollTop
       this.$refs.scrollContent.addEventListener('scroll', function (e) {
         // this.clientHeight:可视区高度  this.scrollTop:滚动高度 this.this.scrollHeight:文档高度
-//        console.log(this.clientHeight);//可视区高度
-//        console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
+//        // console.log(this.clientHeight);//可视区高度
+//        // console.log(this.scrollHeight - this.scrollTop - this.clientHeight); // 到底部的距离
         if (this.scrollHeight - this.scrollTop - this.clientHeight <= 600) {
           that.getSearchData()
         }
@@ -207,7 +207,7 @@
           Indicator.close()
         }).catch(err => {
           Indicator.close()
-          console.log(err)
+          // console.log(err)
         })
       },
       changeType(type){//选择类型搜索
@@ -260,34 +260,12 @@
     background-color: #008842;
     color: #fff;
   }
-  .hide {
-    opacity:.5;
-    top:-3.661rem;
-    transform:scale(.8,.8);
-    transition:.5s;
-    -webkit-transition:.5s;
-  }
-  /*.toTop .search-type{*/
-    /*position: fixed;*/
-  /*}*/
-  .searchList .content.toTop{
-    padding-top: 4rem;
-    transition:.5s;
-    -webkit-transition:.5s;
-  }
+
   .searchList .content{
     padding-top: 7.611rem;
-    transition:.5s;
-    -webkit-transition:.5s;
+    /*transition:.5s;*/
+    /*-webkit-transition:.5s;*/
     padding-bottom: 0;
-  }
-  .content,.header{
-    transition:.5s;
-    -webkit-transition:.5s;
-  }
-  .searchList .content{
-    transition:.5s;
-    -webkit-transition:.5s;
   }
   .search-type > li > p {
     width: 6.389rem;
@@ -306,13 +284,6 @@
     text-align: center;
   }
 
-  .search-type.top {
-    top: 0;
-    transition:.3s;
-    -webkit-transition:.3s;
-    border:none;
-    border-bottom:.3rem solid #efefef;
-  }
   .search-type {
     padding: .5rem;
     /*border-top: .5rem solid #efefef;*/
@@ -320,16 +291,11 @@
     background-color: #fff;
     position: fixed;
     top: 3.611rem;
-    transition:.5s;
-    -webkit-transition:.5s;
+    z-index: 99;
+    /*transition:.5s;*/
+    /*-webkit-transition:.5s;*/
   }
 
-  .hot-search {
-    font-size: 1.222rem;
-    line-height: 2.305;
-    background-color: #efefef;
-    padding-left: 1rem;
-  }
 
   .search-head > i {
     display: block;

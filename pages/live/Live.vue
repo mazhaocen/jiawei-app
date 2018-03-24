@@ -4,13 +4,13 @@
       <a @click="goToLive">开播</a>
     </el-header>
     <section class="content">
-      <div class="banner cl">
-        <swiper :options="swiperOption_live">
-          <swiper-slider v-for="a,index in 3" :key="index"><img src="../../assets/img/shop/banner.png" alt=""></swiper-slider>
-          <!--<swiper-slider class="banner-img" v-for="item in bannerImg"><img :src="item.img" alt=""></swiper-slider>-->
-          <div class="swiper-pagination"  slot="pagination"></div>
-        </swiper>
-      </div>
+      <!--<div class="banner cl">-->
+        <!--<swiper :options="swiperOption_live">-->
+          <!--<swiper-slider v-for="a,index in 3" :key="index"><img src="../../assets/img/shop/banner.png" alt=""></swiper-slider>-->
+          <!--&lt;!&ndash;<swiper-slider class="banner-img" v-for="item in bannerImg"><img :src="item.img" alt=""></swiper-slider>&ndash;&gt;-->
+          <!--<div class="swiper-pagination"  slot="pagination"></div>-->
+        <!--</swiper>-->
+      <!--</div>-->
       <div>
         <div class="live-nva">
           <!--<p class="on">做菜直播</p><p>特产直播</p>-->
@@ -22,6 +22,7 @@
               <!--<span v-if="del" class="pa infoEdit" @click.stop="editInfo(i.id)">编辑</span>-->
               <!--<span v-if="del" class="pa infoDelete" @click.stop="deleteInfo(i,index)">删除</span>-->
               <img v-lazy="i.liveImg">
+              <span class="pa" style="right: 0;top: 0;display: block;padding: .5rem 1rem;background-color: rgba(0,0,0,.5);color:#fff;">主播ID：{{i.roomId}}</span>
             </div>
             <h3>{{i.liveTitle}} <span class="fr">{{i.liveUserNumber}}人观看</span></h3>
             <p>{{i.accountName}}</p>
@@ -59,7 +60,7 @@ export default {
     'swiper-slider':swiperSlide,
   },
   activated(){
-//    console.log(this.$route.meta.height);
+//    // console.log(this.$route.meta.height);
     if(this.$route.meta.height){
       document.getElementsByClassName('content')[1].scrollTop = this.$route.meta.height
     }
@@ -81,7 +82,7 @@ export default {
   methods:{
     goToLive(){//获取直播推流信息
         this.$http.post(this.API.live_begin).then(res=>{
-            console.log(JSON.stringify(res.data))
+            // console.log(JSON.stringify(res.data))
           if(res.data.status==0 && res.data.message=="直播前请先进行认证"){
             this.$router.push({name:'applyLive'})
           }else if(res.data.status==1){

@@ -204,29 +204,13 @@
             this.addressErr = '请填写具体地址'
             return
           }
+        Indicator.open()
         this.nameErrMsg = ''
         this.telErrMsg = ''
         this.addressErr = ''
         this.errAddressMsg = ''
-//        MessageBox({
-//          title: '提示',
-//          message: '您确认保存修改吗？',
-//          showCancelButton: true,
-//          confirmButtonText:'确定'
-//        }).then(res =>{
-//          if(res ==='confirm'){
-//            Indicator.open('提交中...')
-//            let addressInfo = {
-//              name: this.sendName,
-//              phoneNumber: this.photoNum,
-//              province:this.province,
-//              city:this.city,
-//              district:this.country,
-//              zipCode:this.ZipCode,
-//              address:this.inputAddress
-//            }
             this.$http.post(this.API.my_shop_manage,{
-                id:this.shopInfo.id,
+              id:this.shopInfo.id,
               shopShipperName:this.shopInfo.shopShipperName,
               shopShipperPhone:this.shopInfo.shopShipperPhone,
               shopPostCode:this.shopInfo.shopPostCode,
@@ -235,7 +219,6 @@
               shopArea:this.shopInfo.shopArea,
               shopAddress:this.shopInfo.shopAddress,
             }).then(res=>{
-                console.log(res.data)
               if(res.data.status==1){
                 localStorage.setItem('shopInfo',JSON.stringify(this.shopInfo))
                 Toast({
@@ -246,38 +229,9 @@
               }
               Indicator.close()
             }).catch(err=>{
-                console.log(err)
+                // console.log(err)
               Indicator.close()
             })
-//            updateShopAddress(addressInfo).then(res=>{
-//              let shopInfo = JSON.parse(sessionStorage.getItem('shopInfo'))
-//              shopInfo.mainContact.name = this.sendName
-//              shopInfo.mainContact.phoneNumber = this.photoNum
-//              shopInfo.mainContact.province = this.province
-//              shopInfo.mainContact.city = this.city
-//              shopInfo.mainContact.district = this.country
-//              shopInfo.mainContact.zipCode = this.ZipCode
-//              shopInfo.mainContact.address = this.inputAddress
-//              sessionStorage.setItem('shopInfo',JSON.stringify(shopInfo))
-//
-//              Toast({
-//                message: '修改成功',
-//                iconClass: 'mintui mintui-success'
-//              });
-//              history.go(-1)
-//              console.log(res.data.content)
-//            }).catch(err =>{
-//              Toast({
-//                message: '修改失败，请重试',
-//              });
-//              console.log(JSON.stringify(err.response))
-//              console.log(JSON.stringify(err))
-//              Indicator.close()
-//            })
-//          }else{
-//
-//          }
-//        });
       }
     },
     mounted () {

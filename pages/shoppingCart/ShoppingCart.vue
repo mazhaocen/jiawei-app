@@ -33,7 +33,7 @@
                 <div class="buy_num fl cl">
                   <i @click="minusGoodsNum(i)" :class="{'dis':(i.goodsNum<=1 || !i.goodsNum)}">-</i><input type="number" value="1" v-model="i.goodsNum" @change="inputChange(i)"><i style="border-left: 1px solid #efefef" @click="addGoodsNum(i)">+</i>
                 </div>
-                <span style="text-align:right;margin-left: 1rem;width: 5rem;overflow: hidden;font-size: 1.3rem;font-weight: bold;" class="fr">￥{{(i.goodsNum*parseFloat(i.goodsPrice)/10).toFixed(2)}}</span>
+                <span style="text-align:right;margin-left: 1rem;width: 6rem;overflow: hidden;font-size: 1.3rem;font-weight: bold;" class="fr">￥{{(i.goodsNum*parseFloat(i.goodsPrice)/10).toFixed(2)}}</span>
               </div>
               <!--<h3 class="li_price_all"><span class="fl" @click="delGoods(i,index)">删除<i>×</i></span></h3>-->
             </li>
@@ -139,7 +139,7 @@ export default {
   created(){
 //    this.slots[0].values=[this.formatDate(new Date), this.formatDate(new Date(Date.parse(new Date())+86400000))];
 //    Date.parse(new Date());
-//    console.log(this.formatDate(new Date(Date.parse(new Date())+86400000)))
+//    // console.log(this.formatDate(new Date(Date.parse(new Date())+86400000)))
     window.page='shoppingCar'
 
     this.getMyAddressList()
@@ -167,20 +167,20 @@ export default {
         };
         Indicator.open()
          this.$http.post(this.API.shop_cart_addOrder,params).then(res=>{
-             console.log(res.data)
+             // console.log(res.data)
            if(res.data.status==1){
              Indicator.close()
              this.$router.push({name:'payOrder',params:{orderId:res.data.data}})
            }
          }).catch(err=>{
            Indicator.close()
-             console.log(err)
+             // console.log(err)
          })
     },
     getMyAddressList(){//获取收货地址列表
       this.$http.post(this.API.receive_address_my,{}).then(res=>{
         this.addressList = res.data.data.data;
-//        console.log(JSON.stringify(this.addressList))
+//        // console.log(JSON.stringify(this.addressList))
         let that = this;
         if( this.addressList.length || this.addressList){
 //          this.address = this.addressList[0]
@@ -190,9 +190,9 @@ export default {
             }
           });
         }
-        console.log(res.data.data.data)
+        // console.log(res.data.data.data)
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     getMyShopCartList(){//获取购物车条目列表
@@ -207,7 +207,7 @@ export default {
         this.totalPrice =this.totalPrice.toFixed(2)
         this.totalWeight =this.totalPrice.toFixed(2)
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     addGoodsNum(goods){//商品数量 +1
@@ -217,13 +217,13 @@ export default {
       this.$http.post(this.API.shop_cart_goods_add,{
           id:goods.id
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.status==1){
           goods.goodsNum++
           this.upTotalPrice()
         }
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     minusGoodsNum(goods){//商品数量-1
@@ -233,13 +233,13 @@ export default {
       this.$http.post(this.API.shop_cart_goods_minus,{
           id:goods.id
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.status==1){
           goods.goodsNum--
           this.upTotalPrice()
         }
       }).catch(err=>{
-        console.log(err)
+        // console.log(err)
       })
     },
     upTotalPrice(){//更新订单价格
@@ -254,7 +254,7 @@ export default {
       this.totalWeight =this.totalWeight.toFixed(2)
     },
     inputChange(item){
-        console.log(item.goodsNum)
+        // console.log(item.goodsNum)
         if(item.goodsNum>1000){
           item.goodsNum=1000
         }else if(num<=0){
@@ -325,7 +325,7 @@ export default {
             this.$http.post(this.API.shop_cart_goods_del,{
               id:goods.id
             }).then(res=>{
-              console.log(res.data);
+              // console.log(res.data);
               if(res.data.status==1){
                 this.goodsList.items.splice(index,1)
                 Toast({message: '删除成功！'});
@@ -335,7 +335,7 @@ export default {
                 }
               }
             }).catch(err=>{
-              console.log(err)
+              // console.log(err)
             })
           } else {
           }
