@@ -3,7 +3,7 @@
     <el-header title='订单管理' className="go_back"></el-header>
     <section class="content" style="padding-bottom: 0;padding-top: 10rem">
       <ul class="order-manage-type cl pa">
-        <li :class="{active:chooseType=='all'}" @click="orderChoose('all')">全部</li>
+        <li :class="{active:chooseType==''}" @click="orderChoose('')">全部</li>
         <!--<li> &nbsp </li>-->
         <li :class="{active:chooseType=='1'}" @click="orderChoose('1')">待配送</li>
         <li :class="{active:chooseType=='2'}" @click="orderChoose('2')">配送中</li>

@@ -18,7 +18,8 @@
         <div class="add-img"></div>
         <div class="anonymous" @click="isAnonymous()">匿名评论 <span :class="{on:anonymous}"><img src="../../assets/img/me/dagou.png" alt=""></span></div>
       </div>
-      <div class="btn" @click="subComment">提价评论</div>
+      <div class="btn en" v-if="commentText.trim()" @click="subComment">提交评论</div>
+      <div class="btn" v-if="!commentText.trim()">提交评论</div>
     </section>
   </div>
 </template>
@@ -106,6 +107,9 @@ export default {
     width:1.444rem;
     height:1.444rem;
     background: url("../../assets/img/goods/star-off.png") no-repeat center center/100%;
+  }
+  .btn.en{
+    background-color: #008842;
   }
   .btn{
     text-align: center;

@@ -21,7 +21,7 @@
             <li @click="goToEditGoods(item)">编辑宝贝</li>
             <li v-if="!item.status" @click="goodsOnShow(item,index)" >上架</li>
             <li v-if="item.status" @click="goodsOffShow(item,index)" >下架</li>
-            <li @click="share(item.title)">分享</li>
+            <li @click="share(item)">分享</li>
             <li @click="goodsDelete(item,index)">删除</li>
           </ul>
         </li>
@@ -31,23 +31,35 @@
         <button @click="goToAddGoods">发布宝贝</button>
       </div>
     </section>
+    <mt-popup v-model="show" position="bottom" style="width: 100%" class="share">
+      <p>分享到</p>
+      <ul>
+        <li @click="shareWx('session')">微信</li>
+        <li @click="shareWx('timeline')">朋友圈</li>
+        <li @click="shareQQ('QFriend')"> QQ</li>
+        <li @click="shareQQ('QZone')"> QQ 空间</li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 
 <script>
   import Header from '@/components/Head'
-  import { MessageBox, Indicator ,Toast} from 'mint-ui';
+  import { MessageBox, Indicator ,Toast, Popup} from 'mint-ui';
 export default {
   name: 'GoodsManage',
   data () {
     return {
       goodsStatus:'',
       items:[],
-      total:0
+      total:0,
+      show:false,
+      shareItem:''
     }
   },
   components:{
-    'el-header':Header
+    'el-header':Header,
+    'mt-popup':Popup
   },
   created(){
       let shop = sessionStorage.getItem('goodsData'+this.goodsStatus);
@@ -69,7 +81,6 @@ export default {
         Indicator.close()
       }).catch(err=>{
         Indicator.close()
-        // console.log(err)
       })
     },
     goodsOnShow(m,index){//商品上架
@@ -86,7 +97,6 @@ export default {
           }
         Indicator.close()
       }).catch(err=>{
-        // console.log(err)
         Indicator.close()
       })
     },
@@ -105,7 +115,6 @@ export default {
         Indicator.close()
       }).catch(err=>{
         Indicator.close()
-        // console.log(err)
       })
     },
     goodsDelete(m,index){//商品删除
@@ -143,20 +152,59 @@ export default {
       while (s.length <= rs + 2) {s += '0';}
       return s;
     },
-    share (title) {
-      let sharedModule = api.require('shareAction');
-      sharedModule.share({
-        text: '味人服务',
-        type: 'url',
-        path:'http://www.weirenfw.com/weirenService/apk/weirenService.apk'
+    share (item) {
+      this.show = true
+      this.shareItem = item
+    },
+    shareQQ(type){
+      let qq = api.require('QQPlus');
+      this.show = false
+      qq.shareNews({
+        url: 'http://www.weirenfw.com/weirenService/web/index.html#/goodsContainer/'+this.shareItem.id,
+        title: this.shareItem.name,
+        description: this.shareItem.detail,
+        imgUrl: this.shareItem.imgs,
+        type:type// QZone  QFriend
+      },function(ret,err){
+        if (ret.status){
+          alert("分享成功！");
+        } else {
+        }
       });
-    }
-
+    },
+    shareWx(type){
+      let wx = api.require('wx');
+      this.show = false
+      wx.shareWebpage({
+        scene: type,//session（会话）timeline（朋友圈）favorite（收藏）
+        title: this.shareItem.name,
+        description: this.shareItem.detail,
+        thumb: 'widget://html/img/64.png',
+        contentUrl: 'http://www.weirenfw.com/weirenService/web/index.html#/goodsContainer/'+this.shareItem.id,
+      }, function(ret, err) {
+        if (ret.status) {
+          alert('分享成功');
+        } else {
+        }
+      });
+    },
   }
 }
 </script>
 
 <style scoped>
+  .share>ul>li{
+    line-height: 3rem;
+    width: 25%;
+    text-align: center;
+  }
+  .share>p{
+    text-align: center;
+    line-height: 3rem;
+  }
+  .share{
+
+  }
   .goods-info{
     padding: .5rem 1rem;
     border-bottom:1px solid #efefef;

@@ -41,7 +41,7 @@
     </div>
     <footer class="footer"  v-if="!isReplay">
       <input type="text" readonly @click="commentInput" placeholder="发表评论">
-      <p class="share-btn" @click=""></p>
+      <p class="share-btn" @click="share()"></p>
       <p class="collect-btn" :class="{'on':data.hasCollected}" @click="collect(data.hasCollected)">{{data.countCollect}}</p>
       <p class="support-btn" :class="{'on':data.hasFavored}" @click="favour(data.hasFavored)">{{data.countFavor}}</p>
     </footer>
@@ -103,6 +103,15 @@
       }).catch(err=>{
 
       })
+    },
+    share (item) {
+//      console.log(item)
+      let sharedModule = api.require('shareAction');
+      sharedModule.share({
+        text: '味人服务',
+        type: 'url',
+        path:'http://www.weirenfw.com/weirenService/web/index.html#/informationDetail/'+this.infoId
+      });
     },
     collect(){//收藏按钮
       if(!this.data.hasCollected){

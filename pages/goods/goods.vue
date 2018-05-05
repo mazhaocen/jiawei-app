@@ -31,14 +31,8 @@
             </ul>
           </div>
         </div>
-
       </div>
-      <!--<div class="goods_comment">-->
-        <!--<p>商品评论</p>-->
-        <!--<ul>-->
-          <!--<li></li>-->
-        <!--</ul>-->
-      <!--</div>-->
+
       <div class="discuss">
         <p>评论 ({{goods.countGoodsComment}})</p>
         <ul class="discussList">
@@ -47,10 +41,6 @@
             <div class="discuss-detail">
               <p class="cl"><i class="fl">{{i.userName}}<span style="display: block"><i></i></span></i><span class="fr">{{i.createTime | formatTime}}</span></p>
               <p class="discuss-text">{{i.comment}}<!--<span class="fr" style="color: #008842;">回复</span>--></p>
-              <!--<div class="more-discuss">-->
-              <!--<p><span class="user" >鸭子达人</span>回复 <span class="user">鸭子天禧</span>鸭子片皮不是 说一说就可以学会的，这些都是勤加练习的，我也不会，可以的话多指教。</p>-->
-              <!--<p><span class="user" >鸭子天禧</span>回复 <span class="user">鸭子达人</span>大家相互学习</p>-->
-              <!--</div>-->
             </div>
           </li>
         </ul>

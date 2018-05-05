@@ -74,7 +74,7 @@
     </div>
     <footer class="footer" v-if="!isReplay">
       <input type="text" v-model="commentText" placeholder="发表评论" readonly @click="commentInput">
-      <p class="share-btn" @click="share"></p>
+      <p class="share-btn" @click="share(menuData)"></p>
       <p class="collect-btn" :class="{'on':menuData.hasCollected}" @click="menuCollect()">{{menuData.countCollect}}</p>
       <p class="support-btn" :class="{'on':menuData.hasFavored}" @click="favour()">{{menuData.countFavor}}</p>
     </footer>
@@ -296,7 +296,7 @@
               userName:data.replyUserName,
               commentId:id,
               replyComment:''
-            }
+            };
             this.placeholder = '回复 '+data.replyUserName
           }else{
             this.replayData={
@@ -323,12 +323,13 @@
           this.isComment = false
         })
       },
-      share () {
+      share (item) {
+//          console.log(item)
         let sharedModule = api.require('shareAction');
         sharedModule.share({
           text: '味人服务',
           type: 'url',
-          path:'http://www.weirenfw.com/weirenService/apk/weirenService.apk'
+          path:'http://www.weirenfw.com/weirenService/web/index.html#/cookMenuDetail/'+item.id
         });
       }
     }

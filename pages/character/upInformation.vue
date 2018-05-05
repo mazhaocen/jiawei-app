@@ -118,6 +118,10 @@
               }
             }*/
         };
+          console.log(this.formData)
+          if(this.formData){
+
+          }
           this.$http.post(this.API.info_uploadImg,this.formData,config).then(res => {//上传图片
             // console.log('上传成功 返回的图片路径：' + JSON.stringify(res.data));
             if (res.data.status === 1) {
@@ -206,7 +210,7 @@
             this.G.getBlobBydataURI(this.base64Url).then(res => {
               this.formData = new FormData();
               this.formData.append('img', res, "img_" + Date.parse(new Date()) + ".jpg");
-              alert('图片大小：'+res.size/1024+'kb')
+//              alert('图片大小：'+res.size/1024+'kb')
             })
           });
         }

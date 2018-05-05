@@ -78,10 +78,13 @@ export default {
       return  d.getFullYear()+'-'+((d.getMonth()+1)>9?(d.getMonth()+1):('0'+(d.getMonth()+1)))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate())
     },
     goToAddGoods () {
-        if(!this.shopInfo.shopProvince){
-          this.alertNotify()
-          return;
-        }
+      if(!this.shopInfo.shopProvince){
+        this.alertNotify()
+        return;
+      }
+      if(!this.shopInfo.dadaShopId && this.shopInfo.type==2){//没有哒哒 id
+        this.agreeDaDa()
+      }
       this.$router.push({name:'AddGoods'})
     },
     alertNotify(){
@@ -95,6 +98,13 @@ export default {
         } else {
         }
       });
+    },
+    agreeDaDa(){//哒哒协议
+      this.$http.post(this.API.shop_agree_dada,{
+        id:this.shopInfo.id
+      }).then(res=>{
+
+      })
     },
     goToGoodsManage () {
       if(!this.shopInfo.shopProvince){

@@ -52,6 +52,7 @@
 
 <script>
   import Header from '@/components/Head'
+  import {Toast,Indicator} from 'mint-ui'
 export default {
   name: 'receivedOrder',
   data () {
@@ -79,21 +80,32 @@ export default {
     goToReceivedOrderState(){
         this.$router.push({name:'receivedOrderState'})
     },
-    confirmReceive(){
+    confirmReceive(){//确认收货
+      Indicator.open()
       this.$http.post(this.API.buyerConfirm,{
           id:this.orderDetail.id
       }).then(res=>{
+        Indicator.close()
+          if(res.data.status==1){
+            this.getMyOrderList()
+          }else {
+            Toast({
+              message:'确认收货失败！'
+            });
+          }
 
       }).catch(err=>{
-
+        Indicator.close()
       })
     },
     getMyOrderList(){//获取订单列表
+      Indicator.open()
       this.$http.post(this.API.query_order,{
         currentPage:'1',
         pageSize:'1000',
         status:3 //待付款   3//待发货"  4已发货
       }).then(res=>{
+        Indicator.close()
         this.orderList = res.data.data.data;
         let that = this;
         if(this.orderId){
@@ -110,6 +122,7 @@ export default {
           this.chooseTime(this.orderType==2?1:3)
         }
       }).catch(err=>{
+        Indicator.close()
         // console.log(err)
       })
     },

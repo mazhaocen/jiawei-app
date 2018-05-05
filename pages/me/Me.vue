@@ -119,7 +119,6 @@ export default {
     }else{
       this.userInfo.img=''
     }
-    console.log(this)
   },
   activated(){ //activated  keep-alive组件激活时调用。该钩子在服务器端渲染期间不被调用。
 //    // console.log(this.$route.meta.height);
@@ -154,23 +153,24 @@ export default {
   },
   methods:{
     goToMyShop () {//去我的店铺
-      Indicator.open()
+
       if(localStorage.getItem('userId')){
+        Indicator.open()
         this.$http.post(this.API.my_shop_Info,{}).then(res=>{//请求我的店铺资料
           Indicator.close()
           if(res.data.status==1){
             Indicator.close()
             localStorage.setItem('shopInfo',JSON.stringify(res.data.data));
             this.shopInfo = res.data.data;
-            if(JSON.parse(sessionStorage.getItem('goToShopPwd'))){
+            if(JSON.parse(sessionStorage.getItem('goToShopPwd'))){//如果不是第一次进入就进入店铺页面
               this.$router.push({name:'MyShop'})
             }else{
-              if(this.shopInfo.isExistPayPwd){
+              if(this.shopInfo.isExistPayPwd){  //如果第一次进入页面 看有咩有密码 有密码输入
                 this.inputPwd = true;
                 setTimeout( ()=> {
                   this.$refs.focusStatue.focus()
                 },200)
-              }else{
+              }else{  //没密码提示设置密码
                 MessageBox({
                   title: '说明',
                   message: '您还没有设置进店密码，为了确保您的店铺安全，请设置密码',
@@ -195,7 +195,7 @@ export default {
           Indicator.close()
         })
       }else{
-        Indicator.close()
+        // Indicator.close()
         this.goToSingIn()
       }
 
